@@ -46,14 +46,14 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-2">Payment Methods</h4>
 
-          <div className="rounded-xl border border-blue-400 w-26">
+          <div className="rounded-xl border border-[#7179E6] w-26">
             <img src={stripe} alt="stripe" className="rounded-xl h-16" />
           </div>
         </div>
       </div>
 
       <div className="py-3">
-        <div className="container mx-auto px-6 text-sm text-center text-gray-400 border-t border-t-secondary/30 pt-4">
+        <div className="container mx-auto px-6 text-sm text-center text-gray-400 border-t border-t-base-300/30 pt-4">
           © 2025 TicketPoint. All rights reserved.
         </div>
       </div>
