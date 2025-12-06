@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* LIGHT THEME - Custom Override */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base colors */
+  --color-base-100: #f8fafc;
+  --color-base-200: #e2e8f0;
+  --color-base-300: #cbd5e1;
+  --color-base-content: #0f172a;
+
+  /* Primary colors */
+  --color-primary: #ffffff;
+  --color-primary-content: #1e293b;
+
+  /* Secondary colors */
+  --color-secondary: #00adb5;
+  --color-secondary-content: #ffffff;
+
+  /* Accent colors */
+  --color-accent: #222831;
+  --color-accent-content: #ffffff;
+
+  /* Neutral colors */
+  --color-neutral: #364153;
+  --color-neutral-content: #ffffff;
+}
+
+/* DARK THEME - Custom Override */
+@plugin "daisyui/theme" {
+  name: "dark";
+
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base colors */
+  --color-base-100: #1a1a1a;
+  --color-base-200: #2d2d2d;
+  --color-base-300: #404040;
+  --color-base-content: #f1f5f9;
+
+  /* Primary colors */
+  --color-primary: #121212;
+  --color-primary-content: #ffffff;
+
+  /* Secondary colors */
+  --color-secondary: #00adb5;
+  --color-secondary-content: #ffffff;
+
+  /* Accent colors */
+  --color-accent: #eeeeee;
+  --color-accent-content: #1e293b;
+
+  /* Neutral colors */
+  --color-neutral: #d1d5db;
+  --color-neutral-content: #1e293b;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+}
