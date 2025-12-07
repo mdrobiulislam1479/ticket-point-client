@@ -1,13 +1,25 @@
 import { Link, NavLink } from "react-router";
-import { useState } from "react";
+import { use, useState } from "react";
 import logo from "../assets/images/logo.png";
 import ThemeToggle from "./ThemeToggle";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(false);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        toast.success("Log Out Successful");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   const navClass = (isActive) =>
     `px-3 py-2 rounded ${
@@ -79,28 +91,29 @@ const Navbar = () => {
             </>
           ) : (
             <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="avatar">
-                <div className="w-12 rounded-full cursor-pointer">
-                  <img
-                    src={
-                      user.photoURL ||
-                      `https://ui-avatars.com/api/?name=${
-                        user.displayName || user.email
-                      }`
-                    }
-                    alt="user"
-                  />
-                </div>
-              </label>
+              <div
+                className="tooltip tooltip-left"
+                data-tip={user.displayName || "User"}
+              >
+                <label tabIndex={0} className="avatar">
+                  <div className="w-12 rounded-full cursor-pointer">
+                    <img
+                      src={
+                        user.photoURL ||
+                        `https://ui-avatars.com/api/?name=${
+                          user.displayName || user.email
+                        }`
+                      }
+                      alt="user"
+                    />
+                  </div>
+                </label>
+              </div>
+
               <ul
                 tabIndex={0}
                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
               >
-                <li>
-                  <span className="font-medium">
-                    {user.displayName || user.email}
-                  </span>
-                </li>
                 <li>
                   <Link to="/dashboard/profile">My Profile</Link>
                 </li>
@@ -108,7 +121,7 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       localStorage.removeItem("access-token");
-                      window.location = "/";
+                      handleSignOut();
                     }}
                   >
                     Logout

@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Resister";
+import Home from "../pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +11,14 @@ export const router = createBrowserRouter([
     // errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
       // { path: "all-tickets", element: <AllTickets /> },
       // {
       //   path: "ticket/:id",
@@ -22,22 +32,6 @@ export const router = createBrowserRouter([
   },
 
   // Auth
-  // {
-  //   path: "/login",
-  //   element: (
-  //     <AuthLayout>
-  //       <Login />
-  //     </AuthLayout>
-  //   ),
-  // },
-  // {
-  //   path: "/register",
-  //   element: (
-  //     <AuthLayout>
-  //       <Register />
-  //     </AuthLayout>
-  //   ),
-  // },
 
   // Dashboard
   // {
