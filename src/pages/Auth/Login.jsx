@@ -150,7 +150,7 @@ const Login = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        navigate("/forgot-password", { state: { email } })
+                        navigate("/forgot-pass", { state: { email } })
                       }
                       className="text-sm font-medium text-secondary hover:text-secondary/80 hover:underline transition"
                     >
