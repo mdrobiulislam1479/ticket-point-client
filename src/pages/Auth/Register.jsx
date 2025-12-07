@@ -4,12 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEyeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router";
-
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import busImg from "../../assets/images/busImg.jpg";
 import logo from "../../assets/images/logo.png";
 import { AuthContext } from "../../context/AuthContext";
+import { useForm } from "react-hook-form";
+import { imageUpload } from "../../utils/image";
 
 export default function Register() {
   const { createUser, signInWithGoogle, setLoading } = useContext(AuthContext);
@@ -22,25 +23,28 @@ export default function Register() {
   const hasMinLength = password.length >= 6;
   const allValid = hasUppercase && hasLowercase && hasMinLength;
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // React Hook Form
+  const { register, handleSubmit } = useForm();
 
-    const name = e.target.name.value;
-    const photoURL = e.target.photoURL.value || "";
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+  const onSubmit = async (data) => {
+    // e.preventDefault();
+    setLoading(true);
+    const { name, image, email, password } = data;
+    const imageFile = image[0];
+    const imageURL = await imageUpload(imageFile);
+
+    console.log(imageURL);
 
     createUser(email, password)
       .then((result) => {
         return updateProfile(result.user, {
           displayName: name,
-          photoURL: photoURL,
+          photoURL: imageURL || "",
         });
       })
       .then(() => {
         toast.success("Registration successful!");
-        e.target.reset();
+        // e.target.reset();
         setLoading(false);
         navigate("/");
       })
@@ -110,33 +114,42 @@ export default function Register() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleRegister} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Name */}
               <div>
                 <label className="block text-sm font-semibold text-accent mb-2">
                   Full Name
                 </label>
                 <input
+                  {...register("name", { required: true })}
                   type="text"
-                  name="name"
                   placeholder="your name"
                   className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
-                  required
                 />
               </div>
 
-              {/* Photo URL (Optional) */}
+              {/* Profile Image Upload */}
               <div>
                 <label className="block text-sm font-semibold text-accent mb-2">
-                  Photo URL{" "}
-                  <span className="font-normal text-gray-500">(optional)</span>
+                  Profile Image
                 </label>
                 <input
-                  type="url"
-                  name="photoURL"
-                  placeholder="https://example.com/photo.jpg"
-                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                  {...register("image")}
+                  type="file"
+                  accept="image/*"
+                  className="block w-full text-sm text-gray-500
+      file:mx-2 file:py-2 file:px-4
+      file:rounded-md file:border-0
+      file:text-sm file:font-semibold
+      file:bg-secondary file:text-white
+      hover:file:bg-secondary/80
+      border border-gray-300 rounded-xl cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary
+      py-2"
                 />
+                <p className="mt-1 text-xs text-gray-400">
+                  PNG, JPG or JPEG (max 2MB)
+                </p>
               </div>
 
               {/* Email */}
@@ -145,11 +158,10 @@ export default function Register() {
                   Email Address
                 </label>
                 <input
+                  {...register("email", { required: true })}
                   type="email"
-                  name="email"
                   placeholder="you@example.com"
                   className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
-                  required
                 />
               </div>
 
@@ -160,13 +172,12 @@ export default function Register() {
                 </label>
                 <div className="relative">
                   <input
+                    {...register("password", { required: true })}
                     type={showPassword ? "text" : "password"}
-                    name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Create a strong password"
                     className="w-full px-5 py-4 pr-14 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
-                    required
                   />
                   <button
                     type="button"

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 import busImg from "../../assets/images/busImg.jpg";
 import logo from "../../assets/images/logo.png";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const { signInUser, signInWithGoogle, setLoading } = use(AuthContext);
@@ -15,15 +16,17 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogIn = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+  // React Hook Form
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    // e.preventDefault();
+    const { email, password } = data;
 
     signInUser(email, password)
       .then(() => {
         toast.success("Log In successful!");
-        e.target.reset();
+        // e.target.reset();
         navigate(location.state || "/");
         setLoading(false);
       })
@@ -103,15 +106,15 @@ const Login = () => {
               </div>
 
               {/* Form */}
-              <form onSubmit={handleLogIn} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Email Field */}
                 <div>
                   <label className="block text-sm font-semibold text-accent mb-2">
                     Email Address
                   </label>
                   <input
+                    {...register("email", { required: true })}
                     type="email"
-                    name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
@@ -127,8 +130,8 @@ const Login = () => {
                   </label>
                   <div className="relative">
                     <input
+                      {...register("password", { required: true })}
                       type={showPassword ? "text" : "password"}
-                      name="password"
                       className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                       placeholder="••••••••"
                       required
