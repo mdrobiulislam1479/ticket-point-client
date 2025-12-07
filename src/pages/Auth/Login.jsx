@@ -68,7 +68,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex items-center justify-center pt-5">
       <title>Log In | Ticket Point</title>
 
       <div className="w-full container bg-primary rounded-3xl shadow-2xl overflow-hidden grid lg:grid-cols-2">

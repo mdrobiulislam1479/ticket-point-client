@@ -135,7 +135,7 @@ const Navbar = () => {
 
       {/* mobile menu */}
       {open && (
-        <div className="md:hidden bg-blend-saturation border-y border-y-secondary text-center">
+        <div className="md:hidden bg-blend-saturation border-y border-y-secondary text-center absolute w-full left-0 px-4 py-6 bg-primary/90 backdrop-blur-md">
           <div className="flex flex-col gap-6 py-6">
             <NavLink
               to="/"
