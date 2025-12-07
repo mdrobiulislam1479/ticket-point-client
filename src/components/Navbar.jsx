@@ -29,7 +29,7 @@ const Navbar = () => {
     }`;
 
   return (
-    <header className="backdrop-blur-md bg-primary/50 sticky top-0 z-50">
+    <header className="backdrop-blur-md bg-primary/50 sticky top-0 z-50 shadow">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         {/* mobile toggles */}
         <div className="md:hidden flex items-center">

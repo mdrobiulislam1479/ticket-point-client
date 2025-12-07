@@ -4,12 +4,16 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Home from "../pages/Home/Home";
 import ForgotPass from "../pages/Auth/ForgotPass";
+import ErrorPage from "../components/ErrorPage";
+import AllTickets from "../pages/Tickets/AllTickets";
+import ProtectedRoute from "./ProtectedRoute";
+import TicketsDetails from "../pages/Tickets/TicketsDetails";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       {
@@ -24,15 +28,15 @@ export const router = createBrowserRouter([
         path: "/forgot-pass",
         element: <ForgotPass />,
       },
-      // { path: "all-tickets", element: <AllTickets /> },
-      // {
-      //   path: "ticket/:id",
-      //   element: (
-      //     <ProtectedRoute>
-      //       <TicketDetails />
-      //     </ProtectedRoute>
-      //   ),
-      // },
+      { path: "all-tickets", element: <AllTickets /> },
+      {
+        path: "ticket/:id",
+        element: (
+          <ProtectedRoute>
+            <TicketsDetails />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 

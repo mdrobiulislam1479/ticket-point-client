@@ -4,7 +4,7 @@ import stripe from "../assets/images/stripe.jpg";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-accent mt-8">
+    <footer className="bg-primary text-accent mt-8 shadow">
       <div className="container mx-auto px-6 py-12 flex flex-col md:flex-row justify-between gap-8">
         <div className="w-44 mb-2">
           <Link

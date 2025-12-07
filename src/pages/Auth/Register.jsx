@@ -139,10 +139,10 @@ export default function Register() {
                   accept="image/*"
                   className="block w-full text-sm text-gray-500
       file:mx-2 file:py-2 file:px-4
-      file:rounded-md file:border-0
+      file:rounded-md file:border-2 file:border-accent/50
       file:text-sm file:font-semibold
-      file:bg-secondary file:text-white
-      hover:file:bg-secondary/80
+      file:text-accent/50
+      file:cursor-pointer
       border border-gray-300 rounded-xl cursor-pointer
       focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary
       py-2"
