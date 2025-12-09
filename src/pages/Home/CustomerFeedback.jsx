@@ -1,70 +1,114 @@
 import { Star } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
+import { useEffect, useRef } from "react";
 
-const CustomerFeedback = () => {
-  const feedbacks = [
+export default function CustomerFeedback() {
+  const sliderRef = useRef(null);
+
+  const testimonials = [
     {
-      name: "Rahim Ahmed",
-      role: "Frequent Traveler",
-      comment:
-        "TicketPoint made my travel booking so easy and reliable. Highly recommend!",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahim",
+      id: 1,
+      name: "Guest user",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
       rating: 5,
-      linear: "from-[#00adb5] to-cyan-600",
+      text: "TicketPoint made my travel booking so easy and reliable. Highly recommend!",
     },
     {
-      name: "Sabrina Akter",
-      role: "Business Traveler",
-      comment:
-        "The online ticketing process is fast and the customer support is excellent.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sabrina",
+      id: 2,
+      name: "Guest user",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
       rating: 5,
-      linear: "from-emerald-500 to-[#00adb5]",
+      text: "The online ticketing process is fast and the customer support is excellent.",
     },
     {
-      name: "Jahid Hossain",
-      role: "Tourist",
-      comment:
-        "I love how I can check ticket prices and routes in one place with TicketPoint.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jahid",
+      id: 3,
+      name: "Guest user",
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
       rating: 5,
-      linear: "from-[#364153] to-[#00adb5]",
+      text: "I love how I can check ticket prices and routes in one place with TicketPoint. Very convenient!",
     },
     {
-      name: "Nusrat Jahan",
-      role: "Student Traveler",
-      comment:
-        "Affordable tickets and smooth booking experience on TicketPoint. I travel often!",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nusrat",
+      id: 4,
+      name: "Guest user",
+      image:
+        "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop",
       rating: 5,
-      linear: "from-[#00adb5] to-[#364153]",
+      text: "Affordable tickets and smooth booking experience on TicketPoint. I travel often!",
     },
     {
-      name: "Shakib Khan",
-      role: "Business Traveler",
-      comment:
-        "Booking tickets with TicketPoint has never been easier. Excellent service!",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Shakib",
+      id: 5,
+      name: "Guest user",
+      image:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
       rating: 5,
-      linear: "from-cyan-600 to-[#00adb5]",
-    },
-    {
-      name: "Mousumi Begum",
-      role: "Tourist",
-      comment:
-        "Great platform with clear ticket info and convenient payment options on TicketPoint.",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mousumi",
-      rating: 5,
-      linear: "from-[#00adb5] to-emerald-500",
+      text: "Great platform with clear ticket info and convenient payment options on TicketPoint.",
     },
   ];
 
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    // Initialize Swiper
+    const script = document.createElement("script");
+    script.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js";
+    script.async = true;
+
+    script.onload = () => {
+      new window.Swiper(slider, {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 24,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 24,
+          },
+        },
+      });
+    };
+
+    document.head.appendChild(script);
+
+    // Add Swiper CSS
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href =
+      "https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css";
+    document.head.appendChild(link);
+
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      if (link.parentNode) link.parentNode.removeChild(link);
+    };
+  }, []);
+
   return (
-    <section className="py-16">
+    <div>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -83,58 +127,61 @@ const CustomerFeedback = () => {
             their journey
           </p>
         </div>
-
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={"auto"}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          pagination={true}
-          modules={[EffectCoverflow, Pagination, Autoplay]}
-          className="mySwiper"
-        >
-          {feedbacks.map((fb, idx) => (
-            <SwiperSlide key={idx} className="!w-[300px]">
-              <div
-                className={`p-6 rounded-2xl shadow-lg text-center bg-linear-to-br ${fb.linear} text-white`}
-              >
-                <img
-                  src={fb.avatar}
-                  alt={fb.name}
-                  className="w-20 h-20 mx-auto rounded-full mb-4 border-4 border-white"
-                />
-                <p className="mb-4">"{fb.comment}"</p>
-                <div className="flex justify-center mb-2">
-                  {Array(fb.rating)
-                    .fill(0)
-                    .map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-current text-yellow-300"
-                      />
-                    ))}
-                </div>
-                <h3 className="font-bold text-lg">{fb.name}</h3>
-                <p className="text-sm">{fb.role}</p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
       </div>
-    </section>
-  );
-};
+      <div className="container w-full">
+        <div className="relative">
+          {/* Swiper Container */}
+          <div ref={sliderRef} className="swiper">
+            <div className="swiper-wrapper">
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id} className="swiper-slide">
+                  <div className="bg-primary rounded-2xl shadow-md shadow-secondary border border-secondary p-8 flex flex-col items-center text-center h-80">
+                    {/* Avatar with online status */}
+                    <div className="relative mb-4">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-20 h-20 rounded-full object-cover ring-4 ring-teal-100"
+                      />
+                      <div className="absolute bottom-0 right-0 w-5 h-5 bg-green-500 rounded-full border-4 border-white"></div>
+                    </div>
 
-export default CustomerFeedback;
+                    {/* Name */}
+                    <h3 className="text-lg font-semibold text-accent mb-3">
+                      {testimonial.name}
+                    </h3>
+
+                    {/* Star Rating */}
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className="w-5 h-5 fill-yellow-400"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                      ))}
+                    </div>
+
+                    {/* Review Text */}
+                    <p className="text-accent/90 text-sm leading-relaxed">
+                      "{testimonial.text}"
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="swiper-button-prev w-12! h-12! bg-white! rounded-full! shadow-md! after:text-base! after:text-gray-600! after:font-bold! hover:shadow-lg! transition-all!"></div>
+          <div className="swiper-button-next  w-12! h-12! bg-white! rounded-full! shadow-md! after:text-base! after:text-gray-600! after:font-bold! hover:shadow-lg! transition-all!"></div>
+
+          {/* Pagination */}
+          <div className="swiper-pagination relative! mt-8!"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
