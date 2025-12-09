@@ -29,7 +29,7 @@ const CustomerFeedback = () => {
       name: "Jahid Hossain",
       role: "Tourist",
       comment:
-        "I love how I can check ticket prices and routes in one place with TicketPoint. Very convenient!",
+        "I love how I can check ticket prices and routes in one place with TicketPoint.",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jahid",
       rating: 5,
       linear: "from-[#364153] to-[#00adb5]",
