@@ -7,10 +7,15 @@ import { AuthContext } from "../../../context/AuthContext";
 import UserMenu from "./Menu/UserMenu";
 import VendorMenu from "./Menu/VendorMenu";
 import AdminMenu from "./Menu/AdminMenu";
+import { FaUser } from "react-icons/fa6";
+import MenuItem from "./Menu/MenuItem";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../LoadingSpinner";
 
 const Sidebar = () => {
   const { signOutUser } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const { role } = useRole();
 
   // Toggle sidebar on mobile
   const handleToggle = () => setIsOpen(!isOpen);
@@ -68,9 +73,10 @@ const Sidebar = () => {
           {/* -------- MENU SECTION -------- */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav onClick={closeSidebar}>
-              <UserMenu />
-              <VendorMenu />
-              <AdminMenu />
+              <MenuItem icon={FaUser} label="Profile" address="/dashboard" />
+              {role === "user" && <UserMenu />}
+              {role === "vendor" && <VendorMenu />}
+              {role === "admin" && <AdminMenu />}
             </nav>
           </div>
 

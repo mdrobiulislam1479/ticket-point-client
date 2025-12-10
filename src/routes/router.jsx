@@ -9,20 +9,18 @@ import AllTickets from "../pages/Tickets/AllTickets";
 import ProtectedRoute from "./ProtectedRoute";
 import TicketsDetails from "../pages/Tickets/TicketsDetails";
 import DashboardLayout from "../layouts/DashboardLayout";
-import UserProfile from "../pages/Dashboard/User/UserProfile";
 import MyBookedTickets from "../pages/Dashboard/User/MyBookedTickets";
 import TransactionHistory from "../pages/Dashboard/User/TransactionHistory";
-import VendorProfile from "../pages/Dashboard/Vendor/VendorProfile";
 import AddTicket from "../pages/Dashboard/Vendor/AddTicket";
 import MyAddedTickets from "../pages/Dashboard/Vendor/MyAddedTickets";
 import RequestedBookings from "../pages/Dashboard/Vendor/RequestedBookings";
 import RevenueOverview from "../pages/Dashboard/Vendor/RevenueOverview";
-import AdminProfile from "../pages/Dashboard/Admin/AdminProfile";
 import ManageTickets from "../pages/Dashboard/Admin/ManageTickets";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdvertiseTickets from "../pages/Dashboard/Admin/AdvertiseTickets";
 import VendorRoute from "./VendorRoute";
 import AdminRoute from "./AdminRoute";
+import Profile from "../components/Dashboard/Sidebar/Menu/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -65,83 +63,118 @@ export const router = createBrowserRouter([
     ),
     children: [
       // User
-      { path: "profile", element: <UserProfile /> },
-      { path: "my-bookings", element: <MyBookedTickets /> },
-      { path: "transactions", element: <TransactionHistory /> },
-
-      // Vendor
       {
-        path: "vendor/profile",
+        index: true,
         element: (
-          <VendorRoute>
-            <VendorProfile />
-          </VendorRoute>
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
         ),
       },
       {
+        path: "my-bookings",
+        element: (
+          <ProtectedRoute>
+            <MyBookedTickets />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "transactions",
+        element: (
+          <ProtectedRoute>
+            <TransactionHistory />
+          </ProtectedRoute>
+        ),
+      },
+
+      // Vendor
+      // {
+      //   path: "vendor/profile",
+      //   element: (
+      //     <VendorRoute>
+      //       <VendorProfile />
+      //     </VendorRoute>
+      //   ),
+      // },
+      {
         path: "vendor/add-ticket",
         element: (
-          <VendorRoute>
-            <AddTicket />
-          </VendorRoute>
+          <ProtectedRoute>
+            <VendorRoute>
+              <AddTicket />
+            </VendorRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "vendor/my-tickets",
         element: (
-          <VendorRoute>
-            <MyAddedTickets />
-          </VendorRoute>
+          <ProtectedRoute>
+            <VendorRoute>
+              <MyAddedTickets />
+            </VendorRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "vendor/requests",
         element: (
-          <VendorRoute>
-            <RequestedBookings />
-          </VendorRoute>
+          <ProtectedRoute>
+            <VendorRoute>
+              <RequestedBookings />
+            </VendorRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "vendor/revenue",
         element: (
-          <VendorRoute>
-            <RevenueOverview />
-          </VendorRoute>
+          <ProtectedRoute>
+            <VendorRoute>
+              <RevenueOverview />
+            </VendorRoute>
+          </ProtectedRoute>
         ),
       },
 
       // Admin
-      {
-        path: "admin/profile",
-        element: (
-          <AdminRoute>
-            <AdminProfile />
-          </AdminRoute>
-        ),
-      },
+      // {
+      //   path: "admin/profile",
+      //   element: (
+      //     <AdminRoute>
+      //       <AdminProfile />
+      //     </AdminRoute>
+      //   ),
+      // },
       {
         path: "admin/manage-tickets",
         element: (
-          <AdminRoute>
-            <ManageTickets />
-          </AdminRoute>
+          <ProtectedRoute>
+            <AdminRoute>
+              <ManageTickets />
+            </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/manage-users",
         element: (
-          <AdminRoute>
-            <ManageUsers />
-          </AdminRoute>
+          <ProtectedRoute>
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/advertise",
         element: (
-          <AdminRoute>
-            <AdvertiseTickets />
-          </AdminRoute>
+          <ProtectedRoute>
+            <AdminRoute>
+              <AdvertiseTickets />
+            </AdminRoute>
+          </ProtectedRoute>
         ),
       },
     ],

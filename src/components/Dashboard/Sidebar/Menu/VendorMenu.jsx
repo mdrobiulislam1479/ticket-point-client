@@ -6,7 +6,6 @@ import { BsBookmarkCheckFill } from "react-icons/bs";
 const VendorMenu = () => {
   return (
     <div>
-      <MenuItem icon={FaUser} label="Vendor Profile" address="vendor/profile" />
       <MenuItem
         icon={MdAssignmentAdd}
         label="Add Ticket"

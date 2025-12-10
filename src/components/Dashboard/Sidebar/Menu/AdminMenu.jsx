@@ -6,7 +6,6 @@ import { RiAdvertisementFill } from "react-icons/ri";
 const AdminMenu = () => {
   return (
     <div>
-      <MenuItem icon={FaUser} label="Admin Profile" address="admin/profile" />
       <MenuItem
         icon={MdOutlineManageHistory}
         label="Manage Tickets"
