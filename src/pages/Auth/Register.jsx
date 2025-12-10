@@ -11,6 +11,7 @@ import logo from "../../assets/images/logo.png";
 import { AuthContext } from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../utils/image";
+import { saveOrUpdateUser } from "../../utils/user";
 
 export default function Register() {
   const { createUser, signInWithGoogle, setLoading } = useContext(AuthContext);
@@ -27,57 +28,74 @@ export default function Register() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    // e.preventDefault();
     setLoading(true);
-    const { name, image, email, password } = data;
-    const imageFile = image[0];
-    const imageURL = await imageUpload(imageFile);
 
-    console.log(imageURL);
+    try {
+      const { name, image, email, password } = data;
 
-    createUser(email, password)
-      .then((result) => {
-        return updateProfile(result.user, {
-          displayName: name,
-          photoURL: imageURL || "",
-        });
-      })
-      .then(() => {
-        toast.success("Registration successful!");
-        // e.target.reset();
-        setLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        const errorMessages = {
-          "auth/email-already-in-use": "This email is already registered.",
-          "auth/invalid-email": "Invalid email address.",
-          "auth/weak-password": "Password is too weak (min 6 characters).",
-          "auth/network-request-failed":
-            "Network error. Check your connection.",
-        };
-        toast.error(errorMessages[error.code] || error.message);
+      // 1. Upload image
+      const imageFile = image[0];
+      const imageURL = await imageUpload(imageFile);
+
+      // 2. Create user
+      const result = await createUser(email, password);
+
+      // 3. Update profile
+      await updateProfile(result.user, {
+        displayName: name,
+        photoURL: imageURL || "",
       });
+
+      // 4. Save user to DB
+      await saveOrUpdateUser({
+        name,
+        email,
+        image: imageURL,
+      });
+
+      toast.success("Registration successful!");
+      navigate("/");
+    } catch (error) {
+      const errorMessages = {
+        "auth/email-already-in-use": "This email is already registered.",
+        "auth/invalid-email": "Invalid email address.",
+        "auth/weak-password": "Password is too weak (min 6 characters).",
+        "auth/network-request-failed": "Network error. Check your connection.",
+      };
+
+      toast.error(errorMessages[error.code] || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle()
-      .then(() => {
-        toast.success("Google sign in successful!");
-        navigate("/");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.error(
-          error.code === "auth/popup-closed-by-user"
-            ? "Sign-in popup was closed."
-            : error.code === "auth/account-exists-with-different-credential"
-            ? "Account already exists with another sign-in method."
-            : error.message
-        );
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+
+    try {
+      const { user } = await signInWithGoogle();
+
+      toast.success("Google sign in successful!");
+
+      // Save user to database
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
       });
+
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        error.code === "auth/popup-closed-by-user"
+          ? "Sign-in popup was closed."
+          : error.code === "auth/account-exists-with-different-credential"
+          ? "Account already exists with another sign-in method."
+          : error.message
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

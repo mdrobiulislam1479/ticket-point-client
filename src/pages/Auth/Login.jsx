@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/AuthContext";
 import busImg from "../../assets/images/busImg.jpg";
 import logo from "../../assets/images/logo.png";
 import { useForm } from "react-hook-form";
+import { saveOrUpdateUser } from "../../utils/user";
 
 const Login = () => {
   const { signInUser, signInWithGoogle, setLoading } = use(AuthContext);
@@ -20,23 +21,17 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    // e.preventDefault();
-    const { email, password } = data;
+    setLoading(true);
 
-    signInUser(email, password)
-      .then(() => {
-        toast.success("Log In successful!");
-        // e.target.reset();
-        navigate(location.state || "/");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        if (!error?.code) {
-          toast.error("An unknown error occurred.");
-          return;
-        }
-
+    try {
+      const { email, password } = data;
+      await signInUser(email, password);
+      toast.success("Log In successful!");
+      navigate(location.state || "/");
+    } catch (error) {
+      if (!error?.code) {
+        toast.error("An unknown error occurred.");
+      } else {
         const errorMessages = {
           "auth/invalid-email": "Invalid email address.",
           "auth/user-disabled": "This user account has been disabled.",
@@ -48,26 +43,38 @@ const Login = () => {
         };
 
         toast.error(errorMessages[error.code] || error.message);
-      });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle()
-      .then(() => {
-        toast.success("Google sign in successful!");
-        navigate(location?.state || "/");
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        const msg =
-          error.code === "auth/popup-closed-by-user"
-            ? "Sign-in popup was closed."
-            : error.code === "auth/account-exists-with-different-credential"
-            ? "Account exists with different sign-in method."
-            : error.message;
-        toast.error(msg);
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+
+    try {
+      const { user } = await signInWithGoogle();
+      toast.success("Google sign in successful!");
+
+      // Save user to database
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
       });
+
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        error.code === "auth/popup-closed-by-user"
+          ? "Sign-in popup was closed."
+          : error.code === "auth/account-exists-with-different-credential"
+          ? "Account already exists with another sign-in method."
+          : error.message
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
