@@ -49,10 +49,16 @@ const Sidebar = () => {
 
       {/* ---------------- SIDEBAR ---------------- */}
       <div
-        className={`z-30 fixed flex flex-col justify-between bg-base-100 w-64 shadow-lg inset-y-0 left-0 transform
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0 lg:static lg:flex
-          transition-transform duration-300 ease-in-out border-r border-secondary`}
+        className={`
+    fixed top-0 left-0 z-30
+    flex flex-col justify-between
+    bg-base-100 w-64 shadow-lg
+    h-screen border-r border-secondary
+    transform
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    lg:translate-x-0 
+    transition-transform duration-300 ease-in-out
+  `}
       >
         <div className="flex flex-col h-full">
           {/* -------- TOP SECTION -------- */}
