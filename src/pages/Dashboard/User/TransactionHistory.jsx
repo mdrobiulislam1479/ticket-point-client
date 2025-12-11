@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Search, Download, Filter, Calendar } from "lucide-react";
 
 // Dummy transactions data
@@ -41,21 +40,6 @@ const transactions = [
 ];
 
 const TransactionHistory = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredTransactions, setFilteredTransactions] =
-    useState(transactions);
-
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
-    const filtered = transactions.filter(
-      (txn) =>
-        txn.id.toLowerCase().includes(term) ||
-        txn.ticketTitle.toLowerCase().includes(term)
-    );
-    setFilteredTransactions(filtered);
-  };
-
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -149,29 +133,6 @@ const TransactionHistory = () => {
 
         {/* Main Content Card */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          {/* Search and Filter Bar */}
-          <div className="p-6 border-b border-slate-200 bg-slate-50">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 relative">
-                <Search
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
-                  size={20}
-                />
-                <input
-                  type="text"
-                  placeholder="Search by transaction ID or ticket title..."
-                  value={searchTerm}
-                  onChange={handleSearch}
-                  className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                <Download size={18} />
-                Export
-              </button>
-            </div>
-          </div>
-
           {/* Table */}
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -195,7 +156,7 @@ const TransactionHistory = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredTransactions.map((txn) => (
+                {transactions.map((txn) => (
                   <tr
                     key={txn.id}
                     className="border-b border-slate-100 hover:bg-slate-50 transition-colors"
@@ -237,35 +198,12 @@ const TransactionHistory = () => {
           </div>
 
           {/* Empty State */}
-          {filteredTransactions.length === 0 && (
+          {transactions.length === 0 && (
             <div className="py-16 text-center">
               <Search className="mx-auto text-slate-300 mb-4" size={48} />
               <p className="text-slate-600 text-lg font-medium">
                 No transactions found
               </p>
-              <p className="text-slate-500 text-sm mt-1">
-                Try adjusting your search criteria
-              </p>
-            </div>
-          )}
-
-          {/* Pagination Footer */}
-          {filteredTransactions.length > 0 && (
-            <div className="px-6 py-4 border-t border-slate-200 bg-slate-50">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-slate-600">
-                  Showing {filteredTransactions.length} of {transactions.length}{" "}
-                  transactions
-                </p>
-                <div className="flex gap-2">
-                  <button className="px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-white transition-colors">
-                    Previous
-                  </button>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                    Next
-                  </button>
-                </div>
-              </div>
             </div>
           )}
         </div>
