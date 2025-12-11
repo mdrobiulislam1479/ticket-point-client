@@ -26,7 +26,7 @@ const Sidebar = () => {
   return (
     <>
       {/* ---------------- SMALL SCREEN NAV ---------------- */}
-      <div className="bg-gray-100 text-gray-800 flex justify-between lg:hidden shadow">
+      <div className="bg-gray-100 text-gray-800 flex justify-between lg:hidden shadow sticky top-0 z-30">
         <Link to="/" className="block cursor-pointer p-4 font-bold">
           <img src={logo} alt="logo" width="100" height="100" />
         </Link>
@@ -50,7 +50,7 @@ const Sidebar = () => {
       {/* ---------------- SIDEBAR ---------------- */}
       <div
         className={`
-    fixed top-0 left-0 z-30
+    fixed top-0 left-0 z-50
     flex flex-col justify-between
     bg-base-100 w-64 shadow-lg
     h-screen border-r border-secondary

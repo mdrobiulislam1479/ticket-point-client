@@ -19,7 +19,7 @@ const Profile = () => {
   console.log(data);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-200  p-4 sm:p-6 flex items-center justify-center rounded-2xl">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-200  p-4 sm:p-6 flex items-center justify-center">
       <div className="w-full max-w-4xl bg-white  rounded-2xl shadow-2xl overflow-hidden border border-gray-200 transition-all">
         {/* Header Banner */}
         <div className="h-40 sm:h-48 bg-linear-to-r from-[#00adb5] to-[#364153] relative">
