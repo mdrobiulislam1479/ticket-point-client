@@ -273,6 +273,37 @@ const AddTicket = () => {
             </div>
           </div>
 
+          {/* Vendor Info */}
+          <div className="p-6 px-8">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Vendor Information
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">
+                  Vendor Name
+                </label>
+                <input
+                  type="text"
+                  value={user?.displayName}
+                  readOnly
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg bg-gray-100 text-gray-700"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">
+                  Vendor Email
+                </label>
+                <input
+                  type="email"
+                  value={user?.email}
+                  readOnly
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg bg-gray-100 text-gray-700"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* SUBMIT BUTTON */}
           <div className="px-8 py-6">
             <button
