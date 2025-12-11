@@ -1,8 +1,10 @@
 import { Calendar, ChevronRight, Clock, Ticket } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export const TicketCard = ({ ticket }) => {
+export const TCard = ({ ticket }) => {
   const [timeLeft, setTimeLeft] = useState("");
+
+  console.log(ticket);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -127,27 +129,12 @@ export const TicketCard = ({ ticket }) => {
             </p>
           </div>
 
-          {ticket.status === "pending" && (
-            <button
-              disabled
-              className="px-5 py-2.5 rounded-lg text-white font-medium text-sm bg-gray-400 cursor-not-allowed"
-            >
-              Pending Approval
-            </button>
-          )}
-
-          {ticket.status === "accepted" && (
-            <button
-              disabled={new Date(ticket.departure) < new Date()}
-              className={`px-5 py-2.5 rounded-lg text-white font-medium text-sm transition-colors ${
-                new Date(ticket.departure) < new Date()
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
-              }`}
-            >
-              Pay Now
-            </button>
-          )}
+          <button
+            disabled
+            className="px-5 py-2.5 rounded-lg text-white font-medium text-sm bg-secondary"
+          >
+            View details
+          </button>
         </div>
       </div>
     </div>

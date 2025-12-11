@@ -18,8 +18,6 @@ const MyBookedTickets = () => {
     },
   });
 
-  console.log(tickets);
-
   if (isLoading) return <LoadingSpinner />;
 
   return (

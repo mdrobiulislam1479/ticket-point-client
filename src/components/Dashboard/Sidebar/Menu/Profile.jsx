@@ -3,12 +3,13 @@ import React, { use } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { Mail, MapPin, Phone, Calendar, Edit2, Camera } from "lucide-react";
+import LoadingSpinner from "../../../LoadingSpinner";
 
 const Profile = () => {
   const { user, loading } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     enabled: !loading && !!user?.email,
     queryKey: ["user", user?.email],
     queryFn: async () => {
@@ -16,7 +17,8 @@ const Profile = () => {
       return result.data;
     },
   });
-  console.log(data);
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-200  p-4 sm:p-6 flex items-center justify-center">
