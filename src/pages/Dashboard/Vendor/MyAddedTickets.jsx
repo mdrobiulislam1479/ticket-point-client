@@ -215,7 +215,7 @@ const MyAddedTickets = () => {
                   <div className="flex gap-3 pt-4 border-t border-gray-100">
                     <button
                       onClick={() => setEditingTicket(ticket)}
-                      className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-2"
+                      className="flex-1 bg-secondary text-white py-2.5 rounded-lg hover:bg-secondary/80 transition font-medium flex items-center justify-center gap-2"
                     >
                       <Edit className="w-4 h-4" />
                       Edit

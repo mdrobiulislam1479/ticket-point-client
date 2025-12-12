@@ -39,6 +39,7 @@ export const BookingModal = ({ ticket, onClose, user }) => {
       quantity: bookingQty,
       status: "pending",
       user_email: user.email,
+      user_name: user.displayName,
       created_At: new Date(),
     };
 

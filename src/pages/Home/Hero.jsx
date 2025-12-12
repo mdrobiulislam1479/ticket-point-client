@@ -4,6 +4,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "react-router";
 
 const Hero = () => {
   const slides = [
@@ -50,9 +51,12 @@ const Hero = () => {
                   {slide.text}
                 </p>
 
-                <button className="btn mt-5 text-white bg-secondary border-none px-6 w-40">
+                <Link
+                  to={"all-tickets"}
+                  className="btn mt-5 text-white bg-secondary border-none px-6 w-40"
+                >
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

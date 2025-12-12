@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import logo from "../assets/images/logo.png";
-import stripe from "../assets/images/stripe.jpg";
+import { FaStripe } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -38,16 +38,16 @@ const Footer = () => {
 
         <div>
           <h4 className="font-semibold mb-2">Contact Info</h4>
-          <p className="text-sm">email: support@ticketpoint.com</p>
-          <p className="text-sm">phone: +8801XXXXXXXXX</p>
-          <p className="text-sm">facebook: /ticketpoint</p>
+          <p className="text-sm">Email: support@ticketpoint.com</p>
+          <p className="text-sm">Phone: +8801XXXXXXXXX</p>
+          <p className="text-sm">Facebook: /ticketpoint</p>
         </div>
 
         <div>
           <h4 className="font-semibold mb-2">Payment Methods</h4>
 
-          <div className="rounded-xl border border-[#7179E6] w-26">
-            <img src={stripe} alt="stripe" className="rounded-xl h-16" />
+          <div className="rounded-lg border border-[#6860FF] w-24 text-center px-4">
+            <FaStripe size={62} color={"#6860FF"} />
           </div>
         </div>
       </div>

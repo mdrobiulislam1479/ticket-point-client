@@ -6,9 +6,10 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { MoonLoader } from "react-spinners";
 
 const Navbar = () => {
-  const { user, signOutUser } = use(AuthContext);
+  const { user, signOutUser, loading } = use(AuthContext);
   const [open, setOpen] = useState(false);
 
   const handleSignOut = () => {
@@ -76,18 +77,24 @@ const Navbar = () => {
           <ThemeToggle />
           {!user ? (
             <>
-              <Link
-                to="/login"
-                className="btn bg-transparent hover:bg-secondary/30 border-secondary"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="btn bg-secondary hover:bg-secondary/90 text-white border-secondary"
-              >
-                Register
-              </Link>
+              {loading ? (
+                <MoonLoader size={38} color={"#00adb5"} />
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="btn bg-transparent hover:bg-secondary/30 border-secondary"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="btn bg-secondary hover:bg-secondary/90 text-white border-secondary"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </>
           ) : (
             <div className="dropdown dropdown-end">
@@ -177,7 +184,7 @@ const Navbar = () => {
               </div>
             ) : (
               <NavLink
-                to="/dashboard/profile"
+                to="/dashboard"
                 onClick={() => setOpen(false)}
                 className={({ isActive }) => navClass(isActive)}
               >
