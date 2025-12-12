@@ -141,9 +141,9 @@ const WhyChooseUs = () => {
           <div className="inline-flex items-center gap-8 bg-primary px-8 py-4 rounded-2xl shadow-lg border border-secondary">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
-                <div className="w-10 h-10 rounded-full bg-linear-to-r from-[#00adb5] to-cyan-600 border-2 border-primary"></div>
-                <div className="w-10 h-10 rounded-full bg-linear-to-r from-[#364153] to-[#00adb5] border-2 border-primary"></div>
-                <div className="w-10 h-10 rounded-full bg-linear-to-r from-emerald-500 to-[#00adb5] border-2 border-primary"></div>
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-[#00adb5] to-cyan-600 border-2 border-primary hidden md:flex"></div>
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-[#364153] to-[#00adb5] border-2 border-primary hidden md:flex"></div>
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-emerald-500 to-[#00adb5] border-2 border-primary hidden md:flex"></div>
               </div>
               <div className="text-left ml-2">
                 <p className="text-sm font-semibold text-accent">

@@ -28,7 +28,7 @@ const MyAddedTickets = () => {
     enabled: !loading && !!user?.email,
     queryKey: ["tickets", user.email],
     queryFn: async () => {
-      const result = await axiosSecure(`/tickets/${user?.email}`);
+      const result = await axiosSecure(`/tickets/vendor/${user?.email}`);
       return result.data;
     },
   });

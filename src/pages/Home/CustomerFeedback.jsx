@@ -135,7 +135,7 @@ export default function CustomerFeedback() {
             <div className="swiper-wrapper">
               {testimonials.map((testimonial) => (
                 <div key={testimonial.id} className="swiper-slide">
-                  <div className="bg-primary rounded-2xl shadow-md shadow-secondary border border-secondary p-8 flex flex-col items-center text-center h-80">
+                  <div className="bg-primary rounded-2xl border border-secondary p-8 flex flex-col items-center text-center h-80">
                     {/* Avatar with online status */}
                     <div className="relative mb-4">
                       <img
