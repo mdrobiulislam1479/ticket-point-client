@@ -8,14 +8,19 @@ import {
   XCircle,
   Sparkles,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, use } from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { AuthContext } from "../../context/AuthContext";
+import { BookingModal } from "./BookingModal";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const TicketDetails = () => {
   const { id } = useParams();
+  const { user } = use(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const [openModal, setOpenModal] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState("");
   const [isExpired, setIsExpired] = useState(false);
@@ -24,7 +29,7 @@ const TicketDetails = () => {
   const { data: ticket = {}, isLoading } = useQuery({
     queryKey: ["ticket", id],
     queryFn: async () => {
-      const res = await axios(`${import.meta.env.VITE_API_URL}/tickets/${id}`);
+      const res = await axiosSecure(`/tickets/${id}`);
       return res.data;
     },
     enabled: !!id,
@@ -209,16 +214,14 @@ const TicketDetails = () => {
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-base-100 rounded-lg">
-                  <span className="text-accent font-medium">Status</span>
+                  <span className="text-accent font-medium">
+                    Transport Type
+                  </span>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      ticket.status === "pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-green-100 text-green-700"
-                    }`}
+                    className="px-3 py-1 rounded-full text-sm font-semibold  bg-green-100 text-green-700
+                    "
                   >
-                    {ticket.status.charAt(0).toUpperCase() +
-                      ticket.status.slice(1)}
+                    {ticket.transportType}
                   </span>
                 </div>
 
@@ -242,6 +245,7 @@ const TicketDetails = () => {
               </div>
 
               <button
+                onClick={() => setOpenModal(true)}
                 disabled={isBookDisabled}
                 className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-all duration-200 ${
                   isBookDisabled
@@ -262,6 +266,13 @@ const TicketDetails = () => {
                     ? "This journey has already departed"
                     : "No seats available"}
                 </p>
+              )}
+              {openModal && (
+                <BookingModal
+                  ticket={ticket}
+                  onClose={() => setOpenModal(false)}
+                  user={user}
+                />
               )}
             </div>
           </div>

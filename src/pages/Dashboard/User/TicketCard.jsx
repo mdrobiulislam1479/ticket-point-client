@@ -112,9 +112,9 @@ export const TicketCard = ({ ticket }) => {
             <Ticket className="text-green-500 mr-3 shrink-0" size={18} />
             <p className="text-slate-600">
               <span className="font-medium text-slate-800">
-                {ticket.quantity}
+                {ticket.bookedQuantity}
               </span>{" "}
-              {ticket.quantity > 1 ? "tickets" : "ticket"}
+              {ticket.bookedQuantity > 1 ? "tickets" : "ticket"}
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@ export const TicketCard = ({ ticket }) => {
           <div>
             <p className="text-xs text-slate-500 mb-1">Total Price</p>
             <p className="text-2xl font-bold text-slate-800">
-              ${ticket.price * ticket.quantity}
+              ${ticket.price * ticket.bookedQuantity}
             </p>
           </div>
 

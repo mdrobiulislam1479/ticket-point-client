@@ -28,16 +28,6 @@ export const TCard = ({ ticket }) => {
     return () => clearInterval(interval);
   }, [ticket.departure]);
 
-  const getStatusColor = (status) => {
-    const colors = {
-      pending: "bg-yellow-100 text-yellow-700 border-yellow-200",
-      accepted: "bg-blue-100 text-blue-700 border-blue-200",
-      rejected: "bg-red-100 text-red-700 border-red-200",
-      paid: "bg-green-100 text-green-700 border-green-200",
-    };
-    return colors[status] || "bg-gray-100 text-gray-700";
-  };
-
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -62,12 +52,8 @@ export const TCard = ({ ticket }) => {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
         <div className="absolute top-4 right-4">
-          <span
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold border ${getStatusColor(
-              ticket.status
-            )}`}
-          >
-            {ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1)}
+          <span className="px-3 py-1.5 rounded-full text-xs font-semibold border bg-green-100 text-green-700 border-green-200">
+            {ticket.transportType}
           </span>
         </div>
         <div className="absolute bottom-4 left-4 right-4">
@@ -121,9 +107,7 @@ export const TCard = ({ ticket }) => {
         <div className="pt-4 border-t border-secondary/50 flex items-center justify-between">
           <div>
             <p className="text-xs text-accent/70 mb-1">Total Price</p>
-            <p className="text-2xl font-bold text-accent">
-              ${ticket.price * ticket.quantity}
-            </p>
+            <p className="text-2xl font-bold text-accent">${ticket.price}</p>
           </div>
 
           <Link
