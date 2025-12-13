@@ -21,6 +21,7 @@ const RequestedBookings = () => {
 
   // Fetch Bookings
   const { data: bookings = [], isLoading } = useQuery({
+    enabled: !!user?.email,
     queryKey: ["bookings"],
     queryFn: async () => {
       const res = await axiosSecure(`/vendor/bookings/${user.email}`);

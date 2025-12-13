@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
 export const BookingModal = ({ ticket, onClose, user }) => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -19,8 +20,15 @@ export const BookingModal = ({ ticket, onClose, user }) => {
     mutationFn: (bookingData) =>
       axiosSecure.post("/booked-tickets", bookingData),
     onSuccess: () => {
-      toast.success("Booking submitted!");
+      toast.success("Booking submitted successfully!");
+      queryClient.invalidateQueries(["tickets", ticket._id]);
       onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Booking failed. Try again."
+      );
     },
   });
 

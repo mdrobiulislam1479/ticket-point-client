@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -42,8 +41,6 @@ const transportTypeData = [
 ];
 
 const RevenueOverview = () => {
-  const [timeRange, setTimeRange] = useState("7d");
-
   const totalRevenue = dummyData.reduce((sum, item) => sum + item.revenue, 0);
   const totalTicketsSold = dummyData.reduce(
     (sum, item) => sum + item.ticketsSold,
@@ -88,26 +85,6 @@ const RevenueOverview = () => {
             <p className="text-gray-600">
               Track your business performance and metrics
             </p>
-          </div>
-
-          {/* Time Range Selector */}
-          <div className="mt-4 md:mt-0 flex gap-2 bg-white rounded-lg shadow-md p-2">
-            {["7d", "30d", "90d", "1y"].map((range) => (
-              <button
-                key={range}
-                onClick={() => setTimeRange(range)}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
-                  timeRange === range
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                {range === "7d" && "7 Days"}
-                {range === "30d" && "30 Days"}
-                {range === "90d" && "90 Days"}
-                {range === "1y" && "1 Year"}
-              </button>
-            ))}
           </div>
         </div>
 

@@ -21,6 +21,7 @@ import AdvertiseTickets from "../pages/Dashboard/Admin/AdvertiseTickets";
 import VendorRoute from "./VendorRoute";
 import AdminRoute from "./AdminRoute";
 import Profile from "../components/Dashboard/Sidebar/Menu/Profile";
+import PaymentSuccess from "../pages/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
             <TicketsDetails />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
       },
     ],
   },

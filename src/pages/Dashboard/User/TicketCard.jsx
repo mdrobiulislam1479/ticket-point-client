@@ -1,8 +1,12 @@
 import { Calendar, ChevronRight, Clock, Ticket } from "lucide-react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { AuthContext } from "../../../context/AuthContext";
 
 export const TicketCard = ({ ticket }) => {
   const [timeLeft, setTimeLeft] = useState("");
+  const axiosSecure = useAxiosSecure();
+  const { user } = use(AuthContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -136,16 +140,48 @@ export const TicketCard = ({ ticket }) => {
             </button>
           )}
 
-          {ticket.status === "accepted" && (
+          {ticket.status === "accepted" &&
+            ticket.paymentStatus === "unpaid" && (
+              <button
+                onClick={async () => {
+                  const res = await axiosSecure.post(
+                    "/create-checkout-session",
+                    {
+                      ticket: {
+                        bookingId: ticket._id,
+                        title: ticket.title,
+                        price: ticket.price,
+                        bookedQuantity: ticket.bookedQuantity,
+                        vendorEmail: ticket.vendor_email,
+                      },
+                      user,
+                    }
+                  );
+
+                  window.location.href = res.data.url;
+                }}
+                disabled={new Date(ticket.departure) < new Date()}
+                className="px-5 py-2.5 rounded-lg text-white bg-secondary hover:bg-secondary/80 cursor-pointer"
+              >
+                Pay Now
+              </button>
+            )}
+
+          {ticket.status === "rejected" && (
             <button
-              disabled={new Date(ticket.departure) < new Date()}
-              className={`px-5 py-2.5 rounded-lg text-white font-medium text-sm transition-colors ${
-                new Date(ticket.departure) < new Date()
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
-              }`}
+              disabled
+              className="px-5 py-2.5 rounded-lg text-white font-medium text-sm bg-red-300 cursor-not-allowed"
             >
-              Pay Now
+              Rejected
+            </button>
+          )}
+
+          {ticket.status === "accepted" && ticket.paymentStatus === "paid" && (
+            <button
+              disabled
+              className="px-5 py-2.5 rounded-lg text-white font-medium text-sm bg-green-500 cursor-not-allowed"
+            >
+              Completed
             </button>
           )}
         </div>
