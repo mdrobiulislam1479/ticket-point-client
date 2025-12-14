@@ -1,15 +1,13 @@
 import { TCard } from "../../components/TCard";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import axios from "axios";
 
 const LatestTickets = () => {
-  const axiosSecure = useAxiosSecure();
-
   const { data: tickets = [], isLoading } = useQuery({
     queryKey: ["latest-ticket"],
     queryFn: async () => {
-      const res = await axiosSecure(`/latest-ticket`);
+      const res = await axios(`${import.meta.env.VITE_API_URL}/latest-ticket`);
       return res.data;
     },
   });

@@ -1,3 +1,4 @@
+import AdvertiseTickets from "./AdvertiseTickets";
 import CustomerFeedback from "./CustomerFeedback";
 import Hero from "./Hero";
 import LatestTickets from "./LatestTickets";
@@ -7,6 +8,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <AdvertiseTickets />
       <LatestTickets />
       <WhyChooseUs />
       <CustomerFeedback />
