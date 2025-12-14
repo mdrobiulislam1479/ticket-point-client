@@ -10,6 +10,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase.config";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -33,12 +34,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const signOutUser = () => {
-    return signOut(auth);
+    setLoading(true);
+    return signOut(auth).finally(() => setLoading(false));
   };
 
   const forgotPassword = (email) => {
     setLoading(true);
-    return sendPasswordResetEmail(auth, email);
+    return sendPasswordResetEmail(auth, email).finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -47,24 +49,28 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
     user,
     setUser,
     loading,
+    setLoading,
     createUser,
     signInUser,
     signInWithGoogle,
     signOutUser,
-    setLoading,
     forgotPassword,
   };
 
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

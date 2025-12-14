@@ -42,9 +42,9 @@ export const router = createBrowserRouter([
         path: "/forgot-pass",
         element: <ForgotPass />,
       },
-      { path: "all-tickets", element: <AllTickets /> },
+      { path: "/all-tickets", element: <AllTickets /> },
       {
-        path: "ticket/:id",
+        path: "/ticket/:id",
         element: (
           <ProtectedRoute>
             <TicketsDetails />

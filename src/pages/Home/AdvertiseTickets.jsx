@@ -17,7 +17,7 @@ const AdvertiseTickets = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>
-      {tickets.length === 0 ? (
+      {tickets?.length === 0 ? (
         ""
       ) : (
         <>

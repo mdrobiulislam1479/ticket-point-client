@@ -111,7 +111,7 @@ export const TCard = ({ ticket }) => {
           </div>
 
           <Link
-            to={`ticket/${ticket._id}`}
+            to={`/ticket/${ticket._id}`}
             className="px-5 py-2.5 rounded-lg text-white font-medium text-sm bg-secondary"
           >
             View details
