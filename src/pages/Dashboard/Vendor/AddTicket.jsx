@@ -1,4 +1,4 @@
-import { use } from "react";
+import { useContext } from "react";
 import {
   Upload,
   MapPin,
@@ -12,12 +12,25 @@ import { AuthContext } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import useAddTicket from "../../../hooks/apiHooks/useAddTicket";
 import { imageUpload } from "../../../utils/image";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const perksOptions = ["AC", "Breakfast", "Wi-Fi", "Snacks"];
 
 const AddTicket = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const { mutateAsync, isPending } = useAddTicket();
+
+  const axiosSecure = useAxiosSecure();
+
+  const { data } = useQuery({
+    enabled: !loading && !!user?.email,
+    queryKey: ["user", user?.email],
+    queryFn: async () => {
+      const result = await axiosSecure(`/user/${user?.email}`);
+      return result.data;
+    },
+  });
 
   const {
     register,
@@ -30,6 +43,17 @@ const AddTicket = () => {
 
   const selectedPerks = watch("perks", []);
   const image = watch("image");
+
+  // Fraud vendor check
+  if (data?.isFraud) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-600 text-lg font-semibold text-center">
+          You have been marked as a fraud vendor. You cannot add new tickets.
+        </p>
+      </div>
+    );
+  }
 
   // Perks toggle
   const togglePerk = (perk) => {
@@ -49,6 +73,7 @@ const AddTicket = () => {
       const imageUrl = await imageUpload(file);
       setValue("image", imageUrl);
     } catch (err) {
+      console.log(err);
       toast.error("Image upload failed!");
     }
   };
