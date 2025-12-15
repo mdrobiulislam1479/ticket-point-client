@@ -247,7 +247,7 @@ const AddTicket = () => {
                     key={perk}
                     type="button"
                     onClick={() => togglePerk(perk)}
-                    className={`px-4 py-3 rounded-lg border-2 flex items-center justify-center gap-2 ${
+                    className={`px-4 py-3 rounded-lg border-2 flex items-center justify-center gap-2 cursor-pointer ${
                       selectedPerks.includes(perk)
                         ? "border-blue-500 bg-blue-50 text-blue-700"
                         : "border-gray-200"
@@ -334,7 +334,7 @@ const AddTicket = () => {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full bg-secondary text-white py-4 rounded-lg font-semibold shadow-lg disabled:opacity-50"
+              className="w-full bg-secondary text-white py-4 rounded-lg font-semibold shadow-lg disabled:opacity-50 cursor-pointer"
             >
               {isPending ? "Adding Ticket..." : "Add Ticket"}
             </button>
