@@ -77,12 +77,12 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl w-full max-w-3xl shadow-xl max-h-[90vh] overflow-y-auto animate-fadeIn">
+      <div className="bg-primary rounded-2xl w-full max-w-3xl shadow-xl max-h-[90vh] overflow-y-auto animate-fadeIn">
         {/* Header */}
         <div className="flex justify-between items-center p-5 border-b">
           <h2 className="text-2xl font-bold">Edit Ticket</h2>
           <button onClick={closeModal}>
-            <X className="w-6 h-6" />
+            <X className="w-6 h-6 cursor-pointer" />
           </button>
         </div>
 
@@ -90,10 +90,10 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-8">
           {/* Title */}
           <div>
-            <label className="text-sm font-semibold mb-2">Ticket Title</label>
+            <label className="text-sm font-semibold">Ticket Title</label>
             <input
               {...register("title", { required: "Title is required" })}
-              className="w-full px-4 py-3 border rounded-lg"
+              className="w-full px-4 py-3 border rounded-lg mt-2"
             />
             {errors.title && (
               <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -125,12 +125,12 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
 
           {/* Transport Type */}
           <div>
-            <label className="text-sm font-semibold mb-2">Transport Type</label>
+            <label className="text-sm font-semibold">Transport Type</label>
             <select
               {...register("transportType", {
                 required: "Transport type is required",
               })}
-              className="w-full px-4 py-3 border rounded-lg"
+              className="w-full px-4 py-3 border rounded-lg mt-2"
             >
               <option value="Bus">Bus</option>
               <option value="Train">Train</option>
@@ -180,8 +180,8 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
 
           {/* Perks */}
           <div>
-            <label className="text-sm font-semibold mb-3">Amenities</label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <label className="text-sm font-semibold">Amenities</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
               {perksOptions.map((perk) => (
                 <button
                   key={perk}
@@ -204,8 +204,8 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
 
           {/* Image Upload */}
           <div>
-            <label className="text-sm font-semibold mb-3">Ticket Image</label>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+            <label className="text-sm font-semibold">Ticket Image</label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mt-3">
               <input
                 type="file"
                 accept="image/*"
@@ -241,7 +241,7 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
           <div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold"
+              className="w-full bg-secondary hover:bg-secondary/80 text-white py-4 rounded-lg font-semibold cursor-pointer"
             >
               Update Ticket
             </button>

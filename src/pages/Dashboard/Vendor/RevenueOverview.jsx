@@ -15,10 +15,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import StatCard from "./StatCard";
 
 const RevenueOverview = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const { data, isLoading } = useQuery({
+    enabled: !loading && !!user?.email,
     queryKey: ["revenue-overview", user.email],
     queryFn: async () => {
       const res = await axiosSecure(`/vendor/revenue-overview/${user.email}`);
@@ -47,10 +48,10 @@ const RevenueOverview = () => {
     <div className="max-w-7xl mx-auto px-4 py-10">
       {/* HEADER */}
       <div className="mb-10">
-        <h2 className="text-4xl font-extrabold text-gray-900">
+        <h2 className="text-4xl font-extrabold text-accent">
           Revenue Overview
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-accent/80 mt-2">
           Track your earnings, ticket sales, and overall performance in one
           place.
         </p>
@@ -64,8 +65,8 @@ const RevenueOverview = () => {
       </div>
 
       {/* BAR CHART */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-secondary">
-        <h3 className="text-xl font-semibold mb-6 text-gray-800">
+      <div className="bg-primary rounded-2xl shadow-lg p-6 border-t-4 border-secondary">
+        <h3 className="text-xl font-semibold mb-6 text-accent">
           Performance Summary
         </h3>
 
@@ -75,7 +76,13 @@ const RevenueOverview = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "var(--color-primary)",
+                  borderRadius: "8px",
+                  border: "none",
+                }}
+              />
               <Bar
                 dataKey="value"
                 radius={[6, 6, 0, 0]}

@@ -21,11 +21,11 @@ const Profile = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-200  p-4 sm:p-6 flex items-center justify-center">
-      <div className="w-full max-w-4xl bg-white  rounded-2xl shadow-2xl overflow-hidden border border-gray-200 transition-all">
+    <div className="min-h-screen p-4 sm:p-6 flex items-center justify-center">
+      <div className="w-full max-w-4xl bg-primary  rounded-2xl shadow-2xl overflow-hidden border border-secondary/10 transition-all">
         {/* Header Banner */}
-        <div className="h-40 sm:h-48 bg-linear-to-r from-[#00adb5] to-[#364153] relative">
-          <button className="absolute top-4 right-4 bg-white/25 backdrop-blur-lg text-white px-4 py-2 rounded-lg hover:bg-white/40 transition flex items-center gap-2 text-sm font-medium">
+        <div className="h-40 sm:h-48 bg-secondary relative">
+          <button className="absolute top-4 right-4 bg-green-400 backdrop-blur-lg text-white px-4 py-2 rounded-lg  transition flex items-center gap-2 text-sm font-medium">
             {data?.role}
           </button>
 
@@ -34,7 +34,7 @@ const Profile = () => {
             <img
               src={data?.image}
               alt={user?.name}
-              className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-xl object-cover transition-all group-hover:scale-105"
+              className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white shadow-xl object-cover transition-all group-hover:scale-105 bg-primary"
             />
           </div>
         </div>
@@ -43,7 +43,7 @@ const Profile = () => {
         <div className="pt-20 px-4 sm:px-8 pb-8">
           {/* Name*/}
           <div className="mb-6 text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 ">
+            <h1 className="text-3xl sm:text-4xl font-bold text-accent ">
               {data?.name}
             </h1>
           </div>
@@ -91,13 +91,13 @@ function ProfileCard({ icon, title, value, color }) {
   };
 
   return (
-    <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition">
+    <div className="flex items-start gap-3 p-4 bg-base-100 rounded-xl shadow-sm hover:shadow-md transition">
       <div className={`${colorMap[color]} p-2 rounded-lg`}>
         {React.cloneElement(icon, { className: "w-5 h-5" })}
       </div>
       <div>
         <p className="text-xs text-gray-500 ">{title}</p>
-        <p className="text-gray-900  font-medium break-all">{value}</p>
+        <p className="text-accent  font-medium break-all">{value}</p>
       </div>
     </div>
   );

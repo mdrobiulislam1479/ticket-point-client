@@ -9,6 +9,12 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ticket Point</title>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body class="bg-base-100">
     <div id="root"></div>

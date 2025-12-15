@@ -7,10 +7,10 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const TransactionHistory = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
 
   const { data: transactions = [], isLoading } = useQuery({
-    enabled: !!user,
+    enabled: !loading && !!user?.email,
     queryKey: ["transactions", user?.email],
     queryFn: async () => {
       const res = await axiosSecure(`/transactions/${user.email}`);
@@ -39,27 +39,27 @@ const TransactionHistory = () => {
     transactions.length > 0 ? totalAmount / transactions.length : 0;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-accent mb-2">
             Transaction History
           </h1>
-          <p className="text-slate-600">
+          <p className="text-accent/80">
             View and manage all your transactions
           </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
+          <div className="bg-primary rounded-xl shadow-sm p-6 border border-secondary/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 mb-1">
+                <p className="text-sm text-accent/80 mb-1">
                   Total Transactions
                 </p>
-                <p className="text-2xl font-bold text-slate-800">
+                <p className="text-2xl font-bold text-accent">
                   {transactions.length}
                 </p>
               </div>
@@ -69,13 +69,11 @@ const TransactionHistory = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
+          <div className="bg-primary rounded-xl shadow-sm p-6 border border-secondary/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 mb-1">Total Amount</p>
-                <p className="text-2xl font-bold text-slate-800">
-                  {totalAmount}
-                </p>
+                <p className="text-sm text-accent/80 mb-1">Total Amount</p>
+                <p className="text-2xl font-bold text-accent">{totalAmount}</p>
               </div>
               <div className="bg-green-100 p-3 rounded-lg">
                 <Download className="text-green-600" size={24} />
@@ -83,13 +81,13 @@ const TransactionHistory = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
+          <div className="bg-primary rounded-xl shadow-sm p-6 border border-secondary/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 mb-1">
+                <p className="text-sm text-accent/80 mb-1">
                   Average Transaction
                 </p>
-                <p className="text-2xl font-bold text-slate-800">
+                <p className="text-2xl font-bold text-accent">
                   {Math.round(avgAmount)}
                 </p>
               </div>
@@ -101,11 +99,11 @@ const TransactionHistory = () => {
         </div>
 
         {/* Transactions Table */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-primary rounded-xl shadow-sm border border-secondary/10 overflow-hidden">
           {transactions.length === 0 ? (
             <div className="py-16 text-center">
-              <Search className="mx-auto text-slate-300 mb-4" size={48} />
-              <p className="text-slate-600 text-lg font-medium">
+              <Search className="mx-auto text-accent/60 mb-4" size={48} />
+              <p className="text-accent/80 text-lg font-medium">
                 No transactions found
               </p>
             </div>
@@ -113,7 +111,7 @@ const TransactionHistory = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-secondary border-b border-slate-200">
+                  <tr className="bg-secondary border-b border-secondary/10">
                     <th className="text-left py-4 px-6 text-sm font-semibold text-white">
                       Transaction ID
                     </th>
@@ -135,22 +133,22 @@ const TransactionHistory = () => {
                   {transactions.map((txn) => (
                     <tr
                       key={txn._id}
-                      className="border-b border-slate-100 hover:bg-slate-50 transition-colors"
+                      className="border-b border-secondary/10 hover:bg-base-100 transition-colors"
                     >
-                      <td className="py-4 px-6 font-mono text-sm text-slate-700 font-medium">
+                      <td className="py-4 px-6 font-mono text-sm text-accent/80 font-medium">
                         {txn.transactionId}
                       </td>
-                      <td className="py-4 px-6 text-slate-800 font-medium">
+                      <td className="py-4 px-6 text-accent/80 font-medium">
                         {txn.ticketTitle}
                       </td>
-                      <td className="py-4 px-6 text-slate-800 font-semibold">
+                      <td className="py-4 px-6 text-accent/80 font-semibold">
                         {txn.amount}
                       </td>
                       <td className="py-4 px-6 flex flex-col">
-                        <span className="text-slate-800 text-sm">
+                        <span className="text-accent text-sm">
                           {formatDate(txn.paidAt)}
                         </span>
-                        <span className="text-slate-500 text-xs">
+                        <span className="text-accent/70 text-xs">
                           {formatTime(txn.paidAt)}
                         </span>
                       </td>

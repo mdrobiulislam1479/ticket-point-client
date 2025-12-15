@@ -82,14 +82,16 @@ const MyAddedTickets = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
+    <div className="min-h-screen py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-accent mb-2">
             My Added Tickets
           </h1>
-          <p className="text-gray-600">Manage and track your ticket listings</p>
+          <p className="text-accent/80">
+            Manage and track your ticket listings
+          </p>
         </div>
 
         {/* Tickets Grid */}
@@ -101,7 +103,7 @@ const MyAddedTickets = () => {
             return (
               <div
                 key={ticket._id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
+                className="bg-primary rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
               >
                 {/* Image with Status Badge */}
                 <div className="relative">
@@ -129,12 +131,12 @@ const MyAddedTickets = () => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-xl font-bold text-accent mb-3">
                     {ticket.title}
                   </h3>
 
                   {/* Route */}
-                  <div className="flex items-center gap-3 mb-4 text-gray-700">
+                  <div className="flex items-center gap-3 mb-4 text-accent/80">
                     <MapPin className="w-5 h-5 text-blue-600 shrink-0" />
                     <span className="font-medium">{ticket.from}</span>
                     <span className="text-gray-400">→</span>
@@ -143,34 +145,34 @@ const MyAddedTickets = () => {
 
                   {/* Price and Quantity */}
                   <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-blue-50 rounded-lg p-3">
+                    <div className="bg-base-100 rounded-lg p-3">
                       <div className="flex items-center gap-2 text-blue-700 mb-1">
                         <DollarSign className="w-4 h-4" />
                         <span className="text-xs font-medium">Price</span>
                       </div>
-                      <p className="text-lg font-bold text-blue-900">
+                      <p className="text-lg font-bold text-accent">
                         ${ticket.price}
                       </p>
                     </div>
-                    <div className="bg-indigo-50 rounded-lg p-3">
+                    <div className="bg-base-100 rounded-lg p-3">
                       <div className="flex items-center gap-2 text-indigo-700 mb-1">
                         <Package className="w-4 h-4" />
                         <span className="text-xs font-medium">Available</span>
                       </div>
-                      <p className="text-lg font-bold text-indigo-900">
+                      <p className="text-lg font-bold text-accent">
                         {ticket.quantity}
                       </p>
                     </div>
                   </div>
 
                   {/* Departure */}
-                  <div className="flex items-center gap-2 text-gray-600 mb-4 bg-gray-50 rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-gray-600 mb-4 bg-base-100 rounded-lg p-3">
                     <Calendar className="w-4 h-4 text-gray-500" />
                     <div>
                       <p className="text-xs font-medium text-gray-500">
                         Departure
                       </p>
-                      <p className="text-sm font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-accent">
                         {new Date(ticket.departure).toLocaleDateString(
                           "en-US",
                           {
@@ -212,17 +214,17 @@ const MyAddedTickets = () => {
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 pt-4 border-t border-gray-100">
+                  <div className="flex gap-3 pt-4 border-t border-secondary/20">
                     <button
                       onClick={() => setEditingTicket(ticket)}
-                      className="flex-1 bg-secondary text-white py-2.5 rounded-lg hover:bg-secondary/80 transition font-medium flex items-center justify-center gap-2"
+                      className="flex-1 bg-secondary text-white py-2.5 rounded-lg hover:bg-secondary/80 transition font-medium flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Edit className="w-4 h-4" />
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(ticket._id)}
-                      className="flex-1 bg-red-50 text-red-600 py-2.5 rounded-lg hover:bg-red-100 transition font-medium flex items-center justify-center gap-2"
+                      className="flex-1 bg-red-50 text-red-600 py-2.5 rounded-lg hover:bg-red-100 transition font-medium flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                       Delete

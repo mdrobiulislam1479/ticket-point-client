@@ -5,6 +5,7 @@ import axios from "axios";
 
 const AdvertiseTickets = () => {
   const { data: tickets = [], isLoading } = useQuery({
+    
     queryKey: ["advertised"],
     queryFn: async () => {
       const res = await axios(

@@ -18,7 +18,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const TicketDetails = () => {
   const { id } = useParams();
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
 
@@ -27,12 +27,12 @@ const TicketDetails = () => {
 
   // Fetch ticket by ID
   const { data: ticket = {}, isLoading } = useQuery({
+    enabled: !!id && !loading && !!user?.email,
     queryKey: ["ticket", id],
     queryFn: async () => {
       const res = await axiosSecure(`/tickets/${id}`);
       return res.data;
     },
-    enabled: !!id,
   });
 
   // Countdown Timer

@@ -7,10 +7,11 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import { TicketCard } from "./TicketCard";
 
 const MyBookedTickets = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const { data: tickets = [], isLoading } = useQuery({
+    enabled: !loading && !!user?.email,
     queryKey: ["booked-tickets"],
     queryFn: async () => {
       const res = await axiosSecure(`/booked-tickets/${user.email}`);
@@ -21,14 +22,14 @@ const MyBookedTickets = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-slate-50 p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-accent mb-2">
             My Booked Tickets
           </h1>
-          <p className="text-slate-600">
+          <p className="text-accent/80">
             Manage and track all your travel bookings
           </p>
         </div>
@@ -41,9 +42,9 @@ const MyBookedTickets = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 py-16 text-center">
-            <Search className="mx-auto text-slate-300 mb-4" size={64} />
-            <p className="text-slate-600 text-lg font-medium">
+          <div className="bg-primary rounded-2xl shadow-sm border border-slate-200 py-16 text-center">
+            <Search className="mx-auto text-accent/80 mb-4" size={64} />
+            <p className="text-accent/80 text-lg font-medium">
               No tickets found
             </p>
           </div>

@@ -15,13 +15,13 @@ import { use } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 
 const RequestedBookings = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
   const queryClient = useQueryClient();
   const axiosSecure = useAxiosSecure();
 
   // Fetch Bookings
   const { data: bookings = [], isLoading } = useQuery({
-    enabled: !!user?.email,
+    enabled: !loading && !!user?.email,
     queryKey: ["bookings"],
     queryFn: async () => {
       const res = await axiosSecure(`/vendor/bookings/${user.email}`);
@@ -85,13 +85,13 @@ const RequestedBookings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
+    <div className="min-h-screen py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-4xl font-bold text-accent mb-2">
           Requested Bookings
         </h1>
-        <p className="text-gray-600 mb-8">
+        <p className="text-accent/80 mb-8">
           Manage and respond to customer booking requests
         </p>
 
@@ -125,14 +125,14 @@ const RequestedBookings = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`bg-white rounded-xl shadow-md p-6 border-l-4 border-${item.color}-500`}
+              className={`bg-primary rounded-xl shadow-md p-6 border-l-4 border-${item.color}-500`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">
+                  <p className="text-sm font-medium text-accent/80">
                     {item.label}
                   </p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">
+                  <p className="text-3xl font-bold text-accent mt-1">
                     {item.value}
                   </p>
                 </div>
@@ -145,9 +145,9 @@ const RequestedBookings = () => {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="bg-primary rounded-xl shadow-md overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full">
               <thead className="bg-secondary">
                 <tr>
                   <th className="px-6 py-4 text-center text-xs font-semibold text-white uppercase">
@@ -171,12 +171,12 @@ const RequestedBookings = () => {
                 </tr>
               </thead>
 
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="divide-y divide-secondary/10">
                 {bookings.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="px-6 py-12 text-center">
-                      <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500 text-lg font-medium">
+                      <Package className="w-16 h-16 text-accent/70 mx-auto mb-4" />
+                      <p className="text-accent/80 text-lg font-medium">
                         No bookings found
                       </p>
                     </td>
@@ -189,7 +189,7 @@ const RequestedBookings = () => {
                     return (
                       <tr
                         key={booking._id}
-                        className="hover:bg-gray-50 transition"
+                        className="hover:bg-base-100 transition"
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center gap-3">
@@ -197,10 +197,10 @@ const RequestedBookings = () => {
                               <User className="w-5 h-5 text-blue-600" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-gray-900">
+                              <div className="text-sm font-semibold text-accent">
                                 {booking.user_name}
                               </div>
-                              <div className="text-sm text-gray-500 flex items-center gap-1">
+                              <div className="text-sm text-accent/70 flex items-center gap-1">
                                 <Mail className="w-3 h-3" />
                                 {booking.user_email}
                               </div>

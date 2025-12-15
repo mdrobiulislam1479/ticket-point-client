@@ -11,13 +11,17 @@ import {
   CheckCircle,
   Sparkles,
 } from "lucide-react";
+import { use } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 const AdvertiseTickets = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const { user, loading } = use(AuthContext);
 
   // Fetch approved tickets
   const { data: tickets = [], isLoading } = useQuery({
+    enabled: !loading && !!user?.email,
     queryKey: ["advertise-tickets"],
     queryFn: async () => {
       const res = await axiosSecure("/admin/advertise-tickets");
@@ -59,8 +63,10 @@ const AdvertiseTickets = () => {
             Promote tickets to increase visibility and boost sales
           </p>
           <div className="flex gap-3">
-            <div className="inline-flex items-center gap-2 bg-secondary text-white px-4 py-2 rounded-full shadow-sm">
-              <span className="text-2xl font-bold">{advertisedCount}</span>
+            <div className="inline-flex items-center gap-2 bg-primary text-accent/80 px-4 py-2 rounded-full shadow-sm">
+              <span className="text-2xl font-bold text-secondary">
+                {advertisedCount}
+              </span>
               <span>Currently Advertised</span>
             </div>
           </div>
@@ -68,7 +74,7 @@ const AdvertiseTickets = () => {
 
         {/* Table */}
         {tickets.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+          <div className="bg-primary rounded-2xl shadow-lg p-12 text-center">
             <div className="text-gray-400 text-6xl mb-4">🎫</div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               No Approved Tickets
@@ -78,7 +84,7 @@ const AdvertiseTickets = () => {
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-base-300">
+          <div className="bg-primary rounded-2xl shadow-xl overflow-hidden border border-secondary/10">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -100,21 +106,21 @@ const AdvertiseTickets = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-secondary/10">
                   {tickets.map((ticket) => (
                     <tr
                       key={ticket._id}
-                      className="bg-primary hover:bg-primary/95 transition-colors"
+                      className="bg-primary hover:bg-base-100 transition-colors"
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-accent">
+                          <span className="font-semibold text-accent/80">
                             {ticket.title}
                           </span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center gap-2 text-accent">
+                        <div className="flex items-center gap-2 text-accent/80">
                           <span className="font-medium">{ticket.from}</span>
                           <ArrowRight className="w-4 h-4 text-accent/80" />
                           <span className="font-medium">{ticket.to}</span>
@@ -136,7 +142,7 @@ const AdvertiseTickets = () => {
                         <div className="flex items-center justify-center">
                           <button
                             onClick={() => toggleAdvertise.mutate(ticket._id)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold transition-all hover:scale-105 shadow-md cursor-pointer ${
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold transition-all  shadow-md cursor-pointer ${
                               ticket.advertised
                                 ? "bg-red-500 hover:bg-red-600"
                                 : "bg-green-500 hover:bg-green-600"

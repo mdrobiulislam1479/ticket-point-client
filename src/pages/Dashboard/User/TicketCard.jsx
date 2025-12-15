@@ -55,7 +55,7 @@ export const TicketCard = ({ ticket }) => {
     });
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-slate-200 group">
+    <div className="bg-primary rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-secondary/10 group">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
         <img
@@ -80,24 +80,24 @@ export const TicketCard = ({ ticket }) => {
 
       {/* Content */}
       <div className="p-5 space-y-4">
-        <div className="flex items-center justify-between bg-slate-50 rounded-xl p-4">
+        <div className="flex items-center justify-between bg-base-100 rounded-xl p-4">
           <div className="flex-1">
-            <p className="text-xs text-slate-500 mb-1">From</p>
-            <p className="font-semibold text-slate-800">{ticket.from}</p>
+            <p className="text-xs text-accent/70 mb-1">From</p>
+            <p className="font-semibold text-accent">{ticket.from}</p>
           </div>
           <div className="flex items-center justify-center px-3">
-            <ChevronRight className="text-blue-500" size={20} />
+            <ChevronRight className="text-secondary" size={20} />
           </div>
           <div className="flex-1 text-right">
-            <p className="text-xs text-slate-500 mb-1">To</p>
-            <p className="font-semibold text-slate-800">{ticket.to}</p>
+            <p className="text-xs text-accent/70 mb-1">To</p>
+            <p className="font-semibold text-accent">{ticket.to}</p>
           </div>
         </div>
 
         <div className="space-y-3">
           <div className="flex items-center text-sm">
             <Calendar className="text-blue-500 mr-3 shrink-0" size={18} />
-            <p className="text-slate-600">
+            <p className="text-accent/80">
               {formatDate(ticket.departure)} at {formatTime(ticket.departure)}
             </p>
           </div>
@@ -105,8 +105,8 @@ export const TicketCard = ({ ticket }) => {
           {ticket.status !== "rejected" && (
             <div className="flex items-center text-sm">
               <Clock className="text-purple-500 mr-3 shrink-0" size={18} />
-              <p className="text-slate-600">
-                <span className="font-medium text-slate-800">{timeLeft}</span>{" "}
+              <p className="text-accent/80">
+                <span className="font-medium text-accent">{timeLeft}</span>{" "}
                 until departure
               </p>
             </div>
@@ -114,8 +114,8 @@ export const TicketCard = ({ ticket }) => {
 
           <div className="flex items-center text-sm">
             <Ticket className="text-green-500 mr-3 shrink-0" size={18} />
-            <p className="text-slate-600">
-              <span className="font-medium text-slate-800">
+            <p className="text-accent/80">
+              <span className="font-medium text-accent">
                 {ticket.bookedQuantity}
               </span>{" "}
               {ticket.bookedQuantity > 1 ? "tickets" : "ticket"}
@@ -123,10 +123,10 @@ export const TicketCard = ({ ticket }) => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+        <div className="pt-4 border-t border-secondary/10 flex items-center justify-between">
           <div>
-            <p className="text-xs text-slate-500 mb-1">Total Price</p>
-            <p className="text-2xl font-bold text-slate-800">
+            <p className="text-xs text-accent/70 mb-1">Total Price</p>
+            <p className="text-2xl font-bold text-accent">
               ${ticket.price * ticket.bookedQuantity}
             </p>
           </div>

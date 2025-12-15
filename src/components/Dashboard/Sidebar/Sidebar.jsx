@@ -33,7 +33,7 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className="p-4 focus:outline-none hover:bg-gray-200 transition"
+          className="p-4 focus:outline-none hover:bg-gray-200 transition cursor-pointer"
         >
           <AiOutlineBars className="h-6 w-6" />
         </button>
@@ -70,7 +70,7 @@ const Sidebar = () => {
             {/* Close button only in mobile */}
             <button
               onClick={handleToggle}
-              className="lg:hidden p-1 rounded hover:bg-gray-200"
+              className="lg:hidden p-1 rounded hover:bg-gray-200 cursor-pointer"
             >
               <AiOutlineClose className="w-6 h-6 text-gray-600" />
             </button>
@@ -92,7 +92,7 @@ const Sidebar = () => {
 
             <button
               onClick={signOutUser}
-              className="flex w-full items-center px-4 py-3 mt-4 text-gray-600 hover:bg-gray-300 transition"
+              className="flex w-full items-center px-4 py-3 mt-4 text-accent hover:bg-base-200 transition cursor-pointer"
             >
               <GrLogout className="w-5 h-5" />
               <span className="ml-3 font-medium">Logout</span>

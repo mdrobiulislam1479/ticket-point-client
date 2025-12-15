@@ -97,27 +97,25 @@ const AddTicket = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          Add New Ticket
-        </h1>
-        <p className="text-gray-600 mb-8">
+    <div className="min-h-screen py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-bold text-accent mb-2">Add New Ticket</h1>
+        <p className="text-accent/80 mb-8">
           Fill in the details to create a new ticket listing
         </p>
 
         {/* FORM */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
+          className="bg-primary rounded-2xl shadow-xl overflow-hidden"
         >
           <div className="p-8 space-y-8">
             {/* Title */}
             <div>
-              <label className="text-sm font-semibold mb-2">Ticket Title</label>
+              <label className="text-sm font-semibold">Ticket Title</label>
               <input
                 {...register("title", { required: "Title is required" })}
-                className="w-full px-4 py-3 border rounded-lg"
+                className="w-full px-4 py-3 border rounded-lg mt-2"
                 placeholder="e.g., Dhaka to Cox's Bazar Express"
               />
               {errors.title && (
@@ -125,8 +123,8 @@ const AddTicket = () => {
               )}
             </div>
 
-            {/* From & To */}
-            <div className="grid md:grid-cols-2 gap-6">
+            {/* From , To & Transport Type */}
+            <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <MapPin className="w-4 h-4" /> From
@@ -156,34 +154,33 @@ const AddTicket = () => {
                   <p className="text-red-500 text-sm">{errors.to.message}</p>
                 )}
               </div>
+
+              <div>
+                <label className="text-sm font-semibold mb-2">
+                  Transport Type
+                </label>
+                <select
+                  {...register("transportType", {
+                    required: "Transport type is required",
+                  })}
+                  className="w-full px-4 py-3 border rounded-lg mt-2"
+                >
+                  <option value="">Select transport type</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Train">Train</option>
+                  <option value="Flight">Flight</option>
+                  <option value="Ferry">Ferry</option>
+                </select>
+                {errors.transportType && (
+                  <p className="text-red-500 text-sm">
+                    {errors.transportType.message}
+                  </p>
+                )}
+              </div>
             </div>
 
-            {/* Transport Type */}
-            <div>
-              <label className="text-sm font-semibold mb-2">
-                Transport Type
-              </label>
-              <select
-                {...register("transportType", {
-                  required: "Transport type is required",
-                })}
-                className="w-full px-4 py-3 border rounded-lg"
-              >
-                <option value="">Select transport type</option>
-                <option value="Bus">Bus</option>
-                <option value="Train">Train</option>
-                <option value="Flight">Flight</option>
-                <option value="Ferry">Ferry</option>
-              </select>
-              {errors.transportType && (
-                <p className="text-red-500 text-sm">
-                  {errors.transportType.message}
-                </p>
-              )}
-            </div>
-
-            {/* Price & Quantity */}
-            <div className="grid md:grid-cols-2 gap-6">
+            {/* Price , Quantity & Departure */}
+            <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <DollarSign className="w-4 h-4" /> Price
@@ -217,31 +214,30 @@ const AddTicket = () => {
                   </p>
                 )}
               </div>
-            </div>
 
-            {/* Departure */}
-            <div>
-              <label className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <Calendar className="w-4 h-4" /> Departure
-              </label>
-              <input
-                type="datetime-local"
-                {...register("departure", {
-                  required: "Departure time is required",
-                })}
-                className="w-full px-4 py-3 border rounded-lg"
-              />
-              {errors.departure && (
-                <p className="text-red-500 text-sm">
-                  {errors.departure.message}
-                </p>
-              )}
+              <div>
+                <label className="text-sm font-semibold mb-2 flex items-center gap-2">
+                  <Calendar className="w-4 h-4" /> Departure
+                </label>
+                <input
+                  type="datetime-local"
+                  {...register("departure", {
+                    required: "Departure time is required",
+                  })}
+                  className="w-full px-4 py-3 border rounded-lg"
+                />
+                {errors.departure && (
+                  <p className="text-red-500 text-sm">
+                    {errors.departure.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Perks */}
             <div>
-              <label className="text-sm font-semibold mb-3">Amenities</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <label className="text-sm font-semibold">Amenities</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
                 {perksOptions.map((perk) => (
                   <button
                     key={perk}
@@ -264,8 +260,8 @@ const AddTicket = () => {
 
             {/* Image Upload */}
             <div>
-              <label className="text-sm font-semibold mb-3">Ticket Image</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+              <label className="text-sm font-semibold ">Ticket Image</label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mt-3">
                 <input
                   type="file"
                   accept="image/*"
@@ -281,14 +277,14 @@ const AddTicket = () => {
                         alt="Preview"
                         className="max-h-48 mx-auto rounded-lg shadow-md"
                       />
-                      <p className="text-sm text-gray-600 mt-2">
+                      <p className="text-sm text-accent/80 mt-2">
                         Click to change image
                       </p>
                     </>
                   ) : (
                     <>
                       <Upload className="w-12 h-12 mx-auto text-gray-400" />
-                      <p className="text-gray-700 font-medium mt-3">
+                      <p className="text-accent/80 font-medium mt-3">
                         Click to upload
                       </p>
                     </>
@@ -300,12 +296,12 @@ const AddTicket = () => {
 
           {/* Vendor Info */}
           <div className="p-6 px-8">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-accent mb-2">
               Vendor Information
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-accent/80 mb-1">
                   Vendor Name
                 </label>
                 <input
