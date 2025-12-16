@@ -134,8 +134,8 @@ const EditTicketModal = ({ ticket, closeModal, refetch }) => {
             >
               <option value="Bus">Bus</option>
               <option value="Train">Train</option>
-              <option value="Flight">Flight</option>
-              <option value="Ferry">Ferry</option>
+              <option value="Plane">Plane</option>
+              <option value="Launch">Launch</option>
             </select>
           </div>
 

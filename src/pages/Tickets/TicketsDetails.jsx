@@ -250,7 +250,7 @@ const TicketDetails = () => {
                 className={`w-full py-4 rounded-xl text-white font-bold text-lg transition-all duration-200 ${
                   isBookDisabled
                     ? "bg-slate-300 cursor-not-allowed"
-                    : "bg-secondary hover:from-secondary/80 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    : "bg-secondary hover:from-secondary/80 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer"
                 }`}
               >
                 {isExpired

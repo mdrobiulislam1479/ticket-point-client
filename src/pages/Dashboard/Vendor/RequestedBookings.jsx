@@ -237,7 +237,7 @@ const RequestedBookings = () => {
                               disabled={booking.status !== "pending"}
                               className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
                                 booking.status === "pending"
-                                  ? "bg-green-600 text-white hover:bg-green-700"
+                                  ? "bg-green-600 text-white hover:bg-green-700 cursor-pointer"
                                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
                               }`}
                             >
@@ -250,7 +250,7 @@ const RequestedBookings = () => {
                               disabled={booking.status !== "pending"}
                               className={`px-4 py-2 rounded-lg flex items-center gap-2 ${
                                 booking.status === "pending"
-                                  ? "bg-red-600 text-white hover:bg-red-700"
+                                  ? "bg-red-600 text-white hover:bg-red-700 cursor-pointer"
                                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
                               }`}
                             >

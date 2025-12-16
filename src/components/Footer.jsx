@@ -28,10 +28,10 @@ const Footer = () => {
               <Link to="/all-tickets">All Tickets</Link>
             </li>
             <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link>Contact Us</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link>About</Link>
             </li>
           </ul>
         </div>

@@ -57,7 +57,7 @@ export const BookingModal = ({ ticket, onClose, user }) => {
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
       <div className="bg-white w-96 p-6 rounded-xl">
-        <h2 className="text-xl font-bold mb-4">Book Ticket</h2>
+        <h2 className="text-xl font-bold mb-4 text-black">Book Ticket</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <label className="text-sm text-gray-700">Quantity</label>
@@ -69,7 +69,7 @@ export const BookingModal = ({ ticket, onClose, user }) => {
             })}
             min={1}
             max={ticket.quantity}
-            className="w-full border p-2 rounded-md mt-1"
+            className="w-full border border-black text-black p-2 rounded-md mt-1"
           />
           {errors.quantity && (
             <p className="text-red-500 text-sm">{errors.quantity.message}</p>
@@ -79,14 +79,14 @@ export const BookingModal = ({ ticket, onClose, user }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-300 rounded-lg"
+              className="px-4 py-2 bg-gray-300 text-black rounded-lg cursor-pointer"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="px-4 py-2 bg-green-600 text-white rounded-lg"
+              className="px-4 py-2 bg-secondary text-white rounded-lg cursor-pointer"
               disabled={createBooking.isPending}
             >
               {createBooking.isPending ? "Booking..." : "Submit"}

@@ -168,8 +168,8 @@ const AddTicket = () => {
                   <option value="">Select transport type</option>
                   <option value="Bus">Bus</option>
                   <option value="Train">Train</option>
-                  <option value="Flight">Flight</option>
-                  <option value="Ferry">Ferry</option>
+                  <option value="Plane">Plane</option>
+                  <option value="Launch">Launch</option>
                 </select>
                 {errors.transportType && (
                   <p className="text-red-500 text-sm">
