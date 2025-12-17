@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function CustomerFeedback() {
   const sliderRef = useRef(null);
@@ -51,7 +52,6 @@ export default function CustomerFeedback() {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    // Initialize Swiper
     const script = document.createElement("script");
     script.src =
       "https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js";
@@ -94,7 +94,6 @@ export default function CustomerFeedback() {
 
     document.head.appendChild(script);
 
-    // Add Swiper CSS
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href =
@@ -111,7 +110,13 @@ export default function CustomerFeedback() {
     <div>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 bg-linear-to-r from-[#00adb5] to-[#364153] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 shadow-lg">
             <Star className="w-4 h-4 fill-current" />
             Customer Reviews
@@ -126,8 +131,9 @@ export default function CustomerFeedback() {
             Join thousands of satisfied travelers who trust TicketPoint for
             their journey
           </p>
-        </div>
+        </motion.div>
       </div>
+
       <div className="container w-full">
         <div className="relative">
           {/* Swiper Container */}
@@ -135,8 +141,14 @@ export default function CustomerFeedback() {
             <div className="swiper-wrapper">
               {testimonials.map((testimonial) => (
                 <div key={testimonial.id} className="swiper-slide">
-                  <div className="bg-primary rounded-2xl border border-secondary p-8 flex flex-col items-center text-center h-80">
-                    {/* Avatar with online status */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
+                    className="bg-primary rounded-2xl border border-secondary p-8 flex flex-col items-center text-center h-80"
+                  >
+                    {/* Avatar */}
                     <div className="relative mb-4">
                       <img
                         src={testimonial.image}
@@ -151,7 +163,7 @@ export default function CustomerFeedback() {
                       {testimonial.name}
                     </h3>
 
-                    {/* Star Rating */}
+                    {/* Rating */}
                     <div className="flex gap-1 mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <svg
@@ -164,11 +176,11 @@ export default function CustomerFeedback() {
                       ))}
                     </div>
 
-                    {/* Review Text */}
+                    {/* Text */}
                     <p className="text-accent/90 text-sm leading-relaxed">
                       "{testimonial.text}"
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
               ))}
             </div>

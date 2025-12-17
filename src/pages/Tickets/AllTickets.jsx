@@ -3,6 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import axios from "axios";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
 
 const AllTickets = () => {
   const [fromInput, setFromInput] = useState("");
@@ -15,19 +21,11 @@ const AllTickets = () => {
 
   const limit = 6;
 
-  // Backend-driven query
   const { data, isLoading } = useQuery({
     queryKey: ["all-tickets", from, to, transport, sort, page],
     queryFn: async () => {
       const res = await axios(`${import.meta.env.VITE_API_URL}/all-tickets`, {
-        params: {
-          from,
-          to,
-          transport,
-          sort,
-          page,
-          limit,
-        },
+        params: { from, to, transport, sort, page, limit },
       });
       return res.data;
     },
@@ -42,7 +40,13 @@ const AllTickets = () => {
   return (
     <div className="container px-4 mt-10">
       {/* Header */}
-      <div className="text-center mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-10"
+      >
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-accent">
           All{" "}
           <span className="bg-linear-to-r from-[#00adb5] to-[#364153] bg-clip-text text-transparent">
@@ -52,12 +56,17 @@ const AllTickets = () => {
         <p className="text-accent text-lg">
           Find the perfect ticket for your next journey.
         </p>
-      </div>
+      </motion.div>
 
       {/* Search Section */}
-      <div className="bg-primary p-6 rounded-xl shadow mb-8">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        className="bg-primary p-6 rounded-xl shadow mb-8"
+      >
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {/* From */}
           <input
             type="text"
             placeholder="From"
@@ -66,7 +75,6 @@ const AllTickets = () => {
             className="input input-bordered"
           />
 
-          {/* To */}
           <input
             type="text"
             placeholder="To"
@@ -75,7 +83,6 @@ const AllTickets = () => {
             className="input input-bordered"
           />
 
-          {/* Transport */}
           <select
             value={transport}
             onChange={(e) => {
@@ -91,7 +98,6 @@ const AllTickets = () => {
             <option value="Launch">Launch</option>
           </select>
 
-          {/* Sort */}
           <select
             value={sort}
             onChange={(e) => {
@@ -105,7 +111,6 @@ const AllTickets = () => {
             <option value="high">High → Low</option>
           </select>
 
-          {/* Search Button */}
           <button
             onClick={() => {
               setFrom(fromInput);
@@ -117,21 +122,36 @@ const AllTickets = () => {
             Search
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Tickets */}
       {tickets.length === 0 ? (
         <p className="text-center text-gray-500">No tickets found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tickets.map((ticket) => (
-            <TCard key={ticket._id} ticket={ticket} />
+          {tickets.map((ticket, i) => (
+            <motion.div
+              key={ticket._id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <TCard ticket={ticket} />
+            </motion.div>
           ))}
         </div>
       )}
 
       {/* Pagination */}
-      <div className="flex justify-center gap-2 mt-10">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        variants={fadeUp}
+        viewport={{ once: true }}
+        className="flex justify-center gap-2 mt-10"
+      >
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => p - 1)}
@@ -159,7 +179,7 @@ const AllTickets = () => {
         >
           Next
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 };
