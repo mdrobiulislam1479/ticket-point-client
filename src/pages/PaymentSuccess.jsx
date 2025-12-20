@@ -14,6 +14,7 @@ const PaymentSuccess = () => {
   }, [sessionId]);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
+      <title>Payment Success</title>
       <div className="bg-primary p-10 rounded-lg shadow-lg text-center">
         <IoBagCheckOutline className="w-16 h-16 text-secondary mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-accent mb-2">

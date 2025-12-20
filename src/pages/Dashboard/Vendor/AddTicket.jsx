@@ -98,6 +98,7 @@ const AddTicket = () => {
 
   return (
     <div className="min-h-screen py-12 px-4">
+      <title>Add Ticket</title>
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-accent mb-2">Add New Ticket</h1>
         <p className="text-accent/80 mb-8">

@@ -46,6 +46,7 @@ const RevenueOverview = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
+      <title>Revenue Overview</title>
       {/* HEADER */}
       <div className="mb-10">
         <h2 className="text-4xl font-extrabold text-accent">

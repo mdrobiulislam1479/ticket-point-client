@@ -118,6 +118,7 @@ const ManageUsers = () => {
 
   return (
     <div className="min-h-screen p-6">
+      <title>Manage Users</title>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

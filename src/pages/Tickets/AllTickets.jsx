@@ -39,6 +39,7 @@ const AllTickets = () => {
 
   return (
     <div className="container px-4 mt-10">
+      <title>Ticket Point | All Tickets</title>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

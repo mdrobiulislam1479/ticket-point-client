@@ -22,6 +22,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen p-4 sm:p-6 flex items-center justify-center">
+      <title>Ticket Point | Profile</title>
       <div className="w-full max-w-4xl bg-primary  rounded-2xl shadow-2xl overflow-hidden border border-secondary/10 transition-all">
         {/* Header Banner */}
         <div className="h-40 sm:h-48 bg-secondary relative">

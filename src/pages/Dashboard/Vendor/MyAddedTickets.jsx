@@ -83,6 +83,7 @@ const MyAddedTickets = () => {
 
   return (
     <div className="min-h-screen py-8 px-4">
+      <title>My Added Tickets</title>
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">

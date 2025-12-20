@@ -35,6 +35,12 @@ const TicketDetails = () => {
     },
   });
 
+  useEffect(() => {
+    if (ticket?.from && ticket?.to) {
+      document.title = `${ticket.from} to ${ticket.to} Ticket`;
+    }
+  }, [ticket]);
+
   // Countdown Timer
   useEffect(() => {
     if (!ticket?.departure) return;

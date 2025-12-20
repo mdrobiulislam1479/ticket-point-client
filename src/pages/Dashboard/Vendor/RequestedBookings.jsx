@@ -86,6 +86,7 @@ const RequestedBookings = () => {
 
   return (
     <div className="min-h-screen py-8 px-4">
+      <title>Requested Bookings</title>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <h1 className="text-4xl font-bold text-accent mb-2">

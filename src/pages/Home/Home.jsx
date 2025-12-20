@@ -7,6 +7,7 @@ import WhyChooseUs from "./WhyChooseUs";
 const Home = () => {
   return (
     <div>
+      <title>Ticket Point | Home</title>
       <Hero />
       <AdvertiseTickets />
       <LatestTickets />

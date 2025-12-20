@@ -40,6 +40,7 @@ const TransactionHistory = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-8">
+      <title>Transaction History</title>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
