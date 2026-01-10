@@ -9,6 +9,7 @@ import busImg from "../../assets/images/busImg.jpg";
 import logo from "../../assets/images/logo.png";
 import { useForm } from "react-hook-form";
 import { saveOrUpdateUser } from "../../utils/user";
+import { ShieldUser, Store, UserRound } from "lucide-react";
 
 const Login = () => {
   const { signInUser, signInWithGoogle, setLoading } = use(AuthContext);
@@ -77,6 +78,35 @@ const Login = () => {
     }
   };
 
+  // Quick Access Login Users
+  const quickUsers = {
+    user: {
+      email: import.meta.env.VITE_User_Email,
+      password: import.meta.env.VITE_User_Password,
+    },
+    vendor: {
+      email: import.meta.env.VITE_Vendor_Email,
+      password: import.meta.env.VITE_Vendor_Password,
+    },
+    admin: {
+      email: import.meta.env.VITE_Admin_Email,
+      password: import.meta.env.VITE_Admin_Password,
+    },
+  };
+
+  const handleQuickLogin = async (role) => {
+    setLoading(true);
+    try {
+      await signInUser(quickUsers[role].email, quickUsers[role].password);
+      toast.success(`${role} Log In successful!`);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center pt-5">
       <title>Log In | Ticket Point</title>
@@ -89,7 +119,7 @@ const Login = () => {
             alt="Welcome to Ticket Point"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-secondary/70 via-transparent to-transparent" />
           <div className="absolute bottom-10 left-10 text-white">
             <h2 className="text-4xl font-bold mb-3">Welcome Back!</h2>
             <p className="text-lg opacity-90">
@@ -99,17 +129,25 @@ const Login = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="p-10 lg:p-16 xl:p-20">
+        <div className="p-8 sm:p-12">
           <div>
             <div className="max-w-md mx-auto">
-              {/* Logo or Title */}
-              <div className="text-center mb-10">
-                <img
-                  src={logo}
-                  alt="Ticket Point Logo"
-                  className="h-24 mx-auto"
-                />
-                <p className=" text-accent">Sign in to continue your journey</p>
+              {/* Logo and Title */}
+              <div className="text-center lg:text-left mb-6">
+                <Link to={"/"}>
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    className="h-16 mb-6 mx-auto lg:mx-0 object-contain hidden lg:block"
+                  />
+                </Link>
+
+                <h3 className="text-3xl font-bold text-base-content">
+                  Welcome Back
+                </h3>
+                <p className="text-base-content/60 mt-2">
+                  Enter your credentials to access your tickets.
+                </p>
               </div>
 
               {/* Form */}
@@ -124,7 +162,7 @@ const Login = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                    className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                     placeholder="you@example.com"
                     required
                   />
@@ -139,14 +177,14 @@ const Login = () => {
                     <input
                       {...register("password", { required: true })}
                       type={showPassword ? "text" : "password"}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                      className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                       placeholder="••••••••"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition"
+                      className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-secondary transition"
                     >
                       {showPassword ? (
                         <IoEyeOutline className="w-6 h-6" />
@@ -156,13 +194,13 @@ const Login = () => {
                     </button>
                   </div>
 
-                  <div className="mt-3 text-right">
+                  <div className="mt-1 text-right">
                     <button
                       type="button"
                       onClick={() =>
                         navigate("/forgot-pass", { state: { email } })
                       }
-                      className="text-sm font-medium text-secondary hover:text-secondary/80 hover:underline transition"
+                      className="text-sm font-medium text-secondary hover:text-secondary/80 hover:underline transition cursor-pointer"
                     >
                       Forgot password?
                     </button>
@@ -172,29 +210,59 @@ const Login = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-secondary hover:bg-secondary/80 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition duration-200"
+                  className="w-full py-3 bg-secondary hover:bg-secondary/80 text-white font-bold rounded-xl shadow-lg transform  transition duration-200 cursor-pointer"
                 >
                   Sign In
                 </button>
               </form>
 
               {/* Divider */}
-              <div className="flex items-center my-8">
+              <div className="flex items-center my-4">
                 <div className="flex-1 border-t border-gray-300"></div>
-                <span className="px-4 text-sm text-accent bg-primary">
-                  or continue with
-                </span>
+                <span className="px-4 text-sm text-accent bg-primary">OR</span>
                 <div className="flex-1 border-t border-gray-300"></div>
               </div>
 
               {/* Google Sign In */}
               <button
                 onClick={handleGoogleSignIn}
-                className="w-full flex items-center justify-center gap-3 py-4 border-2 border-gray-300 hover:border-secondary rounded-xl font-medium text-accent hover:bg-secondary/5 transition"
+                className="w-full flex items-center justify-center gap-3 py-3 border-2 border-gray-300 hover:border-secondary rounded-xl font-medium text-accent hover:bg-secondary/5 transition cursor-pointer"
               >
                 <FcGoogle className="w-6 h-6" />
                 Continue with Google
               </button>
+
+              {/* Divider */}
+              <div className="flex items-center my-4">
+                <div className="flex-1 border-t border-gray-300"></div>
+                <span className="px-4 text-sm text-accent bg-primary">
+                  Quick Access
+                </span>
+                <div className="flex-1 border-t border-gray-300"></div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button
+                  onClick={() => handleQuickLogin("user")}
+                  className="py-3 border rounded-xl flex items-center gap-2 justify-center hover:border-secondary cursor-pointer"
+                >
+                  <UserRound size={20} /> User
+                </button>
+
+                <button
+                  onClick={() => handleQuickLogin("vendor")}
+                  className="py-3 border rounded-xl flex items-center gap-2 justify-center hover:border-secondary cursor-pointer"
+                >
+                  <Store size={20} /> Vendor
+                </button>
+
+                <button
+                  onClick={() => handleQuickLogin("admin")}
+                  className="py-3 border rounded-xl flex items-center gap-2 justify-center hover:border-secondary cursor-pointer"
+                >
+                  <ShieldUser size={20} /> Admin
+                </button>
+              </div>
 
               {/* Register Link */}
               <p className="text-center mt-10 text-accent/70">
