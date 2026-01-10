@@ -15,17 +15,19 @@ import { saveOrUpdateUser } from "../../utils/user";
 
 export default function Register() {
   const { createUser, signInWithGoogle, setLoading } = useContext(AuthContext);
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  // React Hook Form
+  const { register, handleSubmit, watch } = useForm();
+
+  // Watch password for real-time validation
+  const password = watch("password", "");
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
   const hasMinLength = password.length >= 6;
   const allValid = hasUppercase && hasLowercase && hasMinLength;
-
-  // React Hook Form
-  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -110,7 +112,7 @@ export default function Register() {
             alt="Welcome to Ticket Point"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-secondary/70 via-transparent to-transparent" />
           <div className="absolute bottom-10 left-10 text-white">
             <h2 className="text-4xl font-bold mb-3">Join Ticket Point</h2>
             <p className="text-lg opacity-90">Start your journey today!</p>
@@ -121,14 +123,21 @@ export default function Register() {
         <div className="p-8 sm:p-12">
           <div className="max-w-xl mx-auto">
             {/* Logo & Title */}
-            <div className="text-center mb-10">
-              <img
-                src={logo}
-                alt="Ticket Point Logo"
-                className="h-24 mx-auto"
-              />
+            <div className="text-center lg:text-left mb-6">
+              <Link to={"/"}>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="h-14 mb-4 mx-auto lg:mx-0 object-contain hidden lg:block"
+                />
+              </Link>
 
-              <p className="text-accent">Join us and book smarter</p>
+              <h3 className="text-3xl font-extrabold text-base-content tracking-tight">
+                Create Account
+              </h3>
+              <p className="text-base-content/60 mt-1">
+                Start your journey with us today.
+              </p>
             </div>
 
             {/* Form */}
@@ -142,7 +151,7 @@ export default function Register() {
                   {...register("name", { required: true })}
                   type="text"
                   placeholder="your name"
-                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                  className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                 />
               </div>
 
@@ -179,12 +188,12 @@ export default function Register() {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder="you@example.com"
-                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                  className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                 />
               </div>
 
               {/* Password */}
-              <div>
+              <div className="form-control">
                 <label className="block text-sm font-semibold text-accent mb-2">
                   Password
                 </label>
@@ -192,50 +201,64 @@ export default function Register() {
                   <input
                     {...register("password", { required: true })}
                     type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Create a strong password"
-                    className="w-full px-5 py-4 pr-14 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
+                    placeholder="••••••••"
+                    className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 focus:border-secondary transition"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700"
+                    className="absolute inset-y-0 right-4 flex items-center text-base-content/40 hover:text-secondary transition"
                   >
                     {showPassword ? (
-                      <IoEyeOutline className="w-6 h-6" />
+                      <IoEyeOutline size={20} />
                     ) : (
-                      <FaRegEyeSlash className="w-6 h-6" />
+                      <FaRegEyeSlash size={20} />
                     )}
                   </button>
                 </div>
 
-                {/* Password Strength Indicator */}
-                <div className="mt-4 space-y-2 text-sm">
-                  <p
-                    className={`flex items-center gap-2 ${
-                      hasUppercase ? "text-green-600" : "text-gray-500"
+                {/* Password Strength Visualizer */}
+                <div className="grid grid-cols-3 gap-2 mt-4">
+                  <div
+                    className={`h-1.5 rounded-full transition-colors ${
+                      hasMinLength ? "bg-secondary" : "bg-base-300"
+                    }`}
+                  ></div>
+                  <div
+                    className={`h-1.5 rounded-full transition-colors ${
+                      hasUppercase ? "bg-secondary" : "bg-base-300"
+                    }`}
+                  ></div>
+                  <div
+                    className={`h-1.5 rounded-full transition-colors ${
+                      hasLowercase ? "bg-secondary" : "bg-base-300"
+                    }`}
+                  ></div>
+                </div>
+
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                  <span
+                    className={`text-[11px] flex items-center gap-1 font-medium ${
+                      hasMinLength ? "text-secondary" : "text-base-content/40"
                     }`}
                   >
-                    {hasUppercase ? <FaCircleCheck /> : <RxCross2 />} At least
-                    one uppercase letter
-                  </p>
-                  <p
-                    className={`flex items-center gap-2 ${
-                      hasLowercase ? "text-green-600" : "text-gray-500"
+                    {hasMinLength ? <FaCircleCheck /> : <RxCross2 />} 6+
+                    Characters
+                  </span>
+                  <span
+                    className={`text-[11px] flex items-center gap-1 font-medium ${
+                      hasUppercase ? "text-secondary" : "text-base-content/40"
                     }`}
                   >
-                    {hasLowercase ? <FaCircleCheck /> : <RxCross2 />} At least
-                    one lowercase letter
-                  </p>
-                  <p
-                    className={`flex items-center gap-2 ${
-                      hasMinLength ? "text-green-600" : "text-gray-500"
+                    {hasUppercase ? <FaCircleCheck /> : <RxCross2 />} Uppercase
+                  </span>
+                  <span
+                    className={`text-[11px] flex items-center gap-1 font-medium ${
+                      hasLowercase ? "text-secondary" : "text-base-content/40"
                     }`}
                   >
-                    {hasMinLength ? <FaCircleCheck /> : <RxCross2 />} Minimum 6
-                    characters
-                  </p>
+                    {hasLowercase ? <FaCircleCheck /> : <RxCross2 />} Lowercase
+                  </span>
                 </div>
               </div>
 
@@ -243,9 +266,9 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={!allValid}
-                className={`w-full py-4 font-bold rounded-xl shadow-lg transition duration-200 transform  ${
+                className={`w-full py-3 font-bold rounded-xl shadow-lg transition duration-200 transform  ${
                   allValid
-                    ? "bg-secondary hover:bg-secondary/80 text-white hover:scale-105"
+                    ? "bg-secondary hover:bg-secondary/80 text-white  cursor-pointer"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
               >
@@ -254,18 +277,12 @@ export default function Register() {
             </form>
 
             {/* Divider */}
-            <div className="flex items-center my-8">
-              <div className="flex-1 border-t border-gray-300"></div>
-              <span className="px-4 text-sm text-accent bg-primary">
-                or continue with
-              </span>
-              <div className="flex-1 border-t border-gray-300"></div>
-            </div>
+            <div className="my-4 divider text-sm">OR</div>
 
             {/* Google Sign In */}
             <button
               onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-3 py-4 border-2 border-gray-300 hover:border-secondary rounded-xl font-medium text-accent hover:bg-secondary/5 transition"
+              className="w-full flex items-center justify-center gap-3 py-3 border-2 border-gray-300 hover:border-secondary rounded-xl font-medium text-accent hover:bg-secondary/5 transition cursor-pointer"
             >
               <FcGoogle className="w-6 h-6" />
               Continue with Google
