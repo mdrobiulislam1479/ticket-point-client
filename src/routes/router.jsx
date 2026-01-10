@@ -22,6 +22,8 @@ import VendorRoute from "./VendorRoute";
 import AdminRoute from "./AdminRoute";
 import Profile from "../components/Dashboard/Sidebar/Menu/Profile";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import AboutUs from "../pages/AboutUs";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -45,15 +47,19 @@ export const router = createBrowserRouter([
       { path: "/all-tickets", element: <AllTickets /> },
       {
         path: "/ticket/:id",
-        element: (
-          <ProtectedRoute>
-            <TicketsDetails />
-          </ProtectedRoute>
-        ),
+        element: <TicketsDetails />,
       },
       {
         path: "/payment-success",
         element: <PaymentSuccess />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },
@@ -93,15 +99,6 @@ export const router = createBrowserRouter([
         ),
       },
 
-      // Vendor
-      // {
-      //   path: "vendor/profile",
-      //   element: (
-      //     <VendorRoute>
-      //       <VendorProfile />
-      //     </VendorRoute>
-      //   ),
-      // },
       {
         path: "vendor/add-ticket",
         element: (
@@ -143,15 +140,6 @@ export const router = createBrowserRouter([
         ),
       },
 
-      // Admin
-      // {
-      //   path: "admin/profile",
-      //   element: (
-      //     <AdminRoute>
-      //       <AdminProfile />
-      //     </AdminRoute>
-      //   ),
-      // },
       {
         path: "admin/manage-tickets",
         element: (

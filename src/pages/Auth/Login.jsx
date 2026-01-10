@@ -99,7 +99,7 @@ const Login = () => {
     try {
       await signInUser(quickUsers[role].email, quickUsers[role].password);
       toast.success(`${role} Log In successful!`);
-      navigate("/");
+      navigate(location.state || "/");
     } catch (error) {
       toast.error(error.message || "Login failed");
     } finally {
@@ -217,12 +217,7 @@ const Login = () => {
               </form>
 
               {/* Divider */}
-              <div className="flex items-center my-4">
-                <div className="flex-1 border-t border-gray-300"></div>
-                <span className="px-4 text-sm text-accent bg-primary">OR</span>
-                <div className="flex-1 border-t border-gray-300"></div>
-              </div>
-
+              <div className="my-4 divider text-sm">OR</div>
               {/* Google Sign In */}
               <button
                 onClick={handleGoogleSignIn}
@@ -233,13 +228,7 @@ const Login = () => {
               </button>
 
               {/* Divider */}
-              <div className="flex items-center my-4">
-                <div className="flex-1 border-t border-gray-300"></div>
-                <span className="px-4 text-sm text-accent bg-primary">
-                  Quick Access
-                </span>
-                <div className="flex-1 border-t border-gray-300"></div>
-              </div>
+              <div className="my-4 divider text-sm">Quick Access</div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button

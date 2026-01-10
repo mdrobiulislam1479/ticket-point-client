@@ -27,7 +27,7 @@ const TicketDetails = () => {
 
   // Fetch ticket by ID
   const { data: ticket = {}, isLoading } = useQuery({
-    enabled: !!id && !loading && !!user?.email,
+    enabled: !!id && !loading,
     queryKey: ["ticket", id],
     queryFn: async () => {
       const res = await axiosSecure(`/tickets/${id}`);

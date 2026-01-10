@@ -1,6 +1,5 @@
 import { TCard } from "../../components/TCard";
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import axios from "axios";
 import { motion } from "framer-motion";
 
@@ -14,8 +13,6 @@ const AdvertiseTickets = () => {
       return res.data;
     },
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
@@ -34,8 +31,8 @@ const AdvertiseTickets = () => {
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-accent">
                 Advertised{" "}
-                <span className="bg-linear-to-r from-[#00adb5] to-[#364153] bg-clip-text text-transparent">
-                  Tickets
+                <span className="bg-linear-to-r from-[#00adb5] to-[#364153] bg-clip-text text-transparent italic">
+                  Tickets.
                 </span>
               </h2>
               <p className="text-accent text-lg max-w-2xl mx-auto">
@@ -46,18 +43,28 @@ const AdvertiseTickets = () => {
 
           {/* Cards Grid Scroll Animation */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tickets?.map((ticket) => (
-              <motion.div
-                key={ticket._id}
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              >
-                <TCard ticket={ticket} />
-              </motion.div>
-            ))}
+            {isLoading ? (
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))}
+              </>
+            ) : (
+              <>
+                {tickets?.map((ticket) => (
+                  <motion.div
+                    key={ticket._id}
+                    variants={{
+                      hidden: { opacity: 0, y: 40 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  >
+                    <TCard ticket={ticket} />
+                  </motion.div>
+                ))}
+              </>
+            )}
           </div>
         </>
       )}

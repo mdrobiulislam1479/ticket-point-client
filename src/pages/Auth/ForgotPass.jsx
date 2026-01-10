@@ -55,7 +55,7 @@ const ForgotPass = () => {
             alt="Reset Password"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-secondary/70 via-transparent to-transparent" />
           <div className="absolute bottom-10 left-10 text-white">
             <h2 className="text-4xl font-bold mb-3">No Worries!</h2>
             <p className="text-lg opacity-90">
@@ -67,15 +67,21 @@ const ForgotPass = () => {
         {/* Right Side - Reset Form */}
         <div className="p-8 sm:p-12 lg:p-16">
           <div className="max-w-md mx-auto">
-            {/* Logo & Title */}
-            <div className="text-center mb-10">
-              <img
-                src={logo}
-                alt="Ticket Point Logo"
-                className="h-24 mx-auto mb-4"
-              />
-              <p className="mt-2 text-accent">
-                Enter your email and we'll send you a reset link
+            {/* Header */}
+            <div className="text-center lg:text-left mb-10">
+              <Link to={"/"}>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="h-16 mb-8 mx-auto lg:mx-0 object-contain hidden lg:block"
+                />
+              </Link>
+
+              <h3 className="text-3xl font-bold text-base-content">
+                Reset Password
+              </h3>
+              <p className="text-base-content/60 mt-2">
+                Enter the email associated with your account.
               </p>
             </div>
 
@@ -97,7 +103,7 @@ const ForgotPass = () => {
 
               <button
                 type="submit"
-                className="w-full py-4 bg-secondary hover:bg-secondary/80 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition duration-200"
+                className="w-full py-4 bg-secondary hover:bg-secondary/80 text-white font-bold rounded-xl shadow-lg transform  transition duration-200 cursor-pointer"
               >
                 Send Reset Link
               </button>

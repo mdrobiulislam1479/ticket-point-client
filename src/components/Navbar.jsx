@@ -29,6 +29,52 @@ const Navbar = () => {
         : "text-accent hover:text-secondary transition-colors duration-300"
     }`;
 
+  const navList = (
+    <>
+      <NavLink
+        to="/"
+        onClick={() => setOpen(false)}
+        className={({ isActive }) => navClass(isActive)}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/all-tickets"
+        onClick={() => setOpen(false)}
+        className={({ isActive }) => navClass(isActive)}
+      >
+        All Tickets
+      </NavLink>
+      <NavLink
+        to="/about"
+        onClick={() => setOpen(false)}
+        className={({ isActive }) => navClass(isActive)}
+      >
+        About
+      </NavLink>
+      <NavLink
+        to="/contact"
+        onClick={() => setOpen(false)}
+        className={({ isActive }) => navClass(isActive)}
+      >
+        Contact
+      </NavLink>
+      <>
+        {user ? (
+          <NavLink
+            to="/dashboard"
+            onClick={() => setOpen(false)}
+            className={({ isActive }) => navClass(isActive)}
+          >
+            Dashboard
+          </NavLink>
+        ) : (
+          ""
+        )}
+      </>
+    </>
+  );
+
   return (
     <header className="backdrop-blur-md bg-primary/50 sticky top-0 z-50 shadow">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
@@ -54,23 +100,7 @@ const Navbar = () => {
         </div>
 
         {/* desktop nav */}
-        <nav className="hidden md:flex items-center gap-4">
-          <NavLink to="/" className={({ isActive }) => navClass(isActive)}>
-            Home
-          </NavLink>
-          <NavLink
-            to="/all-tickets"
-            className={({ isActive }) => navClass(isActive)}
-          >
-            All Tickets
-          </NavLink>
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) => navClass(isActive)}
-          >
-            Dashboard
-          </NavLink>
-        </nav>
+        <nav className="hidden md:flex items-center gap-4">{navList}</nav>
 
         {/* right */}
         <div className="hidden md:flex items-center gap-4">
@@ -144,27 +174,7 @@ const Navbar = () => {
       {open && (
         <div className="md:hidden bg-blend-saturation border-y border-y-secondary text-center absolute w-full left-0 px-4 py-6 bg-primary/95 backdrop-blur-md">
           <div className="flex flex-col gap-6 py-6">
-            <NavLink
-              to="/"
-              onClick={() => setOpen(false)}
-              className={({ isActive }) => navClass(isActive)}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/all-tickets"
-              onClick={() => setOpen(false)}
-              className={({ isActive }) => navClass(isActive)}
-            >
-              All Tickets
-            </NavLink>
-            <NavLink
-              to="/dashboard"
-              onClick={() => setOpen(false)}
-              className={({ isActive }) => navClass(isActive)}
-            >
-              Dashboard
-            </NavLink>
+            {navList}
             {!user ? (
               <div className="flex flex-col gap-6 w-40 mx-auto">
                 <Link

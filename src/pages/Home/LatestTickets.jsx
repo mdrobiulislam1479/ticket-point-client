@@ -1,8 +1,8 @@
 import { TCard } from "../../components/TCard";
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import axios from "axios";
 import { motion } from "framer-motion";
+import SkeletonCard from "../../components/skeleton/SkeletonCard";
 
 const LatestTickets = () => {
   const { data: tickets = [], isLoading } = useQuery({
@@ -12,8 +12,6 @@ const LatestTickets = () => {
       return res.data;
     },
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
@@ -28,8 +26,8 @@ const LatestTickets = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-accent">
             Latest{" "}
-            <span className="bg-linear-to-r from-[#00adb5] to-[#364153] bg-clip-text text-transparent">
-              Tickets
+            <span className="bg-linear-to-r from-[#00adb5] to-[#364153] bg-clip-text text-transparent italic">
+              Tickets.
             </span>
           </h2>
           <p className="text-accent text-lg max-w-2xl mx-auto">
@@ -52,18 +50,26 @@ const LatestTickets = () => {
           },
         }}
       >
-        {tickets?.map((ticket) => (
-          <motion.div
-            key={ticket._id}
-            variants={{
-              hidden: { opacity: 0, y: 40 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            <TCard ticket={ticket} />
-          </motion.div>
-        ))}
+        {isLoading ? (
+          <>
+            {[...Array(6)].map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </>
+        ) : (
+          <>
+            {tickets?.map((ticket) => (
+              <motion.div
+                key={ticket._id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <TCard ticket={ticket} />
+              </motion.div>
+            ))}
+          </>
+        )}
       </motion.div>
     </div>
   );
