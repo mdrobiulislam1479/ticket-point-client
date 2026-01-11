@@ -53,7 +53,7 @@ const FAQ = () => {
                 transition={{ delay: index * 0.1 }}
                 className="group"
               >
-                <div className="collapse collapse-arrow bg-base-100 rounded-[2rem] border border-base-300 group-hover:border-secondary/30 transition-all shadow-sm">
+                <div className="collapse collapse-arrow bg-base-100 rounded-4xl border border-base-300 group-hover:border-secondary/30 transition-all shadow-sm">
                   <input
                     type="radio"
                     name="home-faq"

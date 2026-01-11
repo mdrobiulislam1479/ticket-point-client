@@ -3,6 +3,7 @@ import CustomerFeedback from "./CustomerFeedback";
 import FAQ from "./FAQ";
 import Hero from "./Hero";
 import LatestTickets from "./LatestTickets";
+import PopularRoutes from "./PopularRoute";
 import WhyChooseUs from "./WhyChooseUs";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <WhyChooseUs />
       <CustomerFeedback />
       <FAQ />
+      <PopularRoutes />
     </div>
   );
 };

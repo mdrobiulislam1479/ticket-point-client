@@ -1,23 +1,41 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoFilterOutline } from "react-icons/io5";
 import { TCard } from "../../components/TCard";
 import { SidebarContent } from "../../components/shared/SidebarContent";
 import SkeletonCard from "../../components/skeleton/SkeletonCard";
+import { useSearchParams } from "react-router";
 
 const AllTickets = () => {
-  const [fromInput, setFromInput] = useState("");
-  const [toInput, setToInput] = useState("");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const [searchParams] = useSearchParams();
+
+  const [fromInput, setFromInput] = useState(searchParams.get("from") || "");
+  const [toInput, setToInput] = useState(searchParams.get("to") || "");
+  const [from, setFrom] = useState(searchParams.get("from") || "");
+  const [to, setTo] = useState(searchParams.get("to") || "");
   const [transport, setTransport] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const limit = 6;
+
+  //update states if the URL changes while the user is on this page
+  useEffect(() => {
+    const urlFrom = searchParams.get("from");
+    const urlTo = searchParams.get("to");
+
+    if (urlFrom) {
+      setFromInput(urlFrom);
+      setFrom(urlFrom);
+    }
+    if (urlTo) {
+      setToInput(urlTo);
+      setTo(urlTo);
+    }
+  }, [searchParams]);
 
   // Data Fetching
   const { data, isLoading } = useQuery({

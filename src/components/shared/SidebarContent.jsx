@@ -40,24 +40,18 @@ export const SidebarContent = ({
       </label>
       <div className="space-y-3">
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-secondary/50">
-            FROM
-          </span>
           <input
             type="text"
-            placeholder="City Name"
+            placeholder="From"
             className="input input-bordered w-full pl-10 rounded-2xl bg-base-200 border-none focus:ring-2 focus:ring-secondary/30"
             value={fromInput}
             onChange={(e) => setFromInput(e.target.value)}
           />
         </div>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-secondary/50">
-            TO
-          </span>
           <input
             type="text"
-            placeholder="Destination"
+            placeholder="To"
             className="input input-bordered w-full pl-10 rounded-2xl bg-base-200 border-none focus:ring-2 focus:ring-secondary/30"
             value={toInput}
             onChange={(e) => setToInput(e.target.value)}
