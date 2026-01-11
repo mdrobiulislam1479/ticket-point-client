@@ -42,7 +42,7 @@ const AdvertiseTickets = () => {
           </motion.div>
 
           {/* Cards Grid Scroll Animation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {isLoading ? (
               <>
                 {[...Array(6)].map((_, i) => (

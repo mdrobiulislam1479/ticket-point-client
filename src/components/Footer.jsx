@@ -28,10 +28,10 @@ const Footer = () => {
               <Link to="/all-tickets">All Tickets</Link>
             </li>
             <li>
-              <Link>Contact Us</Link>
+              <Link to="/contact">Contact Us</Link>
             </li>
             <li>
-              <Link>About</Link>
+              <Link to="/about">About</Link>
             </li>
           </ul>
         </div>
@@ -39,7 +39,7 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-2">Contact Info</h4>
           <p className="text-sm">Email: support@ticketpoint.com</p>
-          <p className="text-sm">Phone: +8801XXXXXXXXX</p>
+          <p className="text-sm">Phone: +8801900000000</p>
           <p className="text-sm">Facebook: /ticketpoint</p>
         </div>
 

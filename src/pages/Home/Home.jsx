@@ -1,5 +1,6 @@
 import AdvertiseTickets from "./AdvertiseTickets";
 import CustomerFeedback from "./CustomerFeedback";
+import FAQ from "./FAQ";
 import Hero from "./Hero";
 import LatestTickets from "./LatestTickets";
 import WhyChooseUs from "./WhyChooseUs";
@@ -13,6 +14,7 @@ const Home = () => {
       <AdvertiseTickets />
       <WhyChooseUs />
       <CustomerFeedback />
+      <FAQ />
     </div>
   );
 };
