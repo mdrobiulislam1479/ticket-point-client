@@ -50,14 +50,14 @@ const PopularRoutes = () => {
   };
 
   return (
-    <section className="py-24 bg-base-100">
+    <section className="pt-20 bg-base-100">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-xl">
             <h2 className="text-4xl md:text-5xl font-black text-base-content mb-4 tracking-tight">
               Popular{" "}
-              <span className="text-secondary italic">Destinations</span>
+              <span className="text-secondary italic">Destinations.</span>
             </h2>
             <p className="text-base-content/60 text-lg">
               The most traveled routes in Bangladesh. Book your seat in seconds.
